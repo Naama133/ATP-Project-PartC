@@ -137,7 +137,7 @@ public class MazeDisplayer extends Canvas {
         double y_Start = mazeDisplay.getStartPosition().getColumnIndex() * cellHeight;
         double x_Goal = mazeDisplay.getGoalPosition().getRowIndex() * cellWidth;
         double y_Goal = mazeDisplay.getGoalPosition().getColumnIndex() * cellHeight;
-        System.out.println("dosp");
+        System.out.println("display");
         System.out.println(""+ mazeDisplay.getStartPosition().getRowIndex() + " " + mazeDisplay.getStartPosition().getColumnIndex());
         System.out.println(""+ mazeDisplay.getGoalPosition().getRowIndex() + " " + mazeDisplay.getGoalPosition().getColumnIndex());
 
