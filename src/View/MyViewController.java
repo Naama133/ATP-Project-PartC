@@ -70,9 +70,7 @@ public class MyViewController implements Initializable , Observer,IView {
         int rows = Integer.parseInt(textField_mazeRows.getText());
         int cols = Integer.parseInt(textField_mazeColumns.getText());
         viewModel.generateMaze(rows,cols);
-
-        setPlayerPosition(0,0); //todo: need to delete
-
+        setPlayerPosition(viewModel.getPlayerRow(),viewModel.getPlayerCol());
     }
 
     public void setPlayerPosition(int row, int col) {
@@ -102,36 +100,42 @@ public class MyViewController implements Initializable , Observer,IView {
 
     @Override
     public void update(Observable o, Object arg) {
-        if(o instanceof MyViewModel){ //todo startPosition and endposition (in each maze creation) + player position after it moves
-            if(viewMaze==null){ //new maze have been created
-                viewMaze=viewModel.getMaze();
-                activeDrawMaze();
-            }
-            else{
-                Maze viewModelMaze = viewModel.getMaze();
-                if(viewModelMaze == viewMaze){ //compare addresses - if it changed - we creat new maze, if not (equal) we moved the character
-                    int pRow = mazeDisplayer.getPlayerRow();
-                    int pCol = mazeDisplayer.getPlayerCol();
+        String action = arg.toString();
+        //todo startPosition and endposition (in each maze creation) + player position after it moves
+
+        if(o instanceof MyViewModel) {
+            switch (action) {//maze creation
+                case "ModelGenerateMaze" -> {
+                    viewMaze = viewModel.getMaze(); //new maze have been created
+                    activeDrawMaze();}
+                case "ModelUpdatePlayerPosition" -> {
                     int rowViewModel = viewModel.getPlayerRow();
                     int colViewModel = viewModel.getPlayerCol();
-                    if(pRow == rowViewModel && pCol == colViewModel) //character not moved -> we got a solution
-                    {//todo: when we not move doesnt mean we solving.
-                        viewModel.getSolution();
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setContentText("Solving maze...");
-                        alert.show();
-                    }
-                    else{ //update character
-                        setPlayerPosition(rowViewModel,colViewModel);
-                    }
-                }
-                else { //new maze have been created
-                    viewMaze = viewModelMaze;
-                    activeDrawMaze();
+                    setPlayerPosition(rowViewModel, colViewModel);}
+                case "ModelSolvedMaze" -> {
+                    viewModel.getSolution();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("Solving maze...");
+                    alert.show();}
+                case "BoundariesProblem" -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("Invalid move - You went outside the boundaries of the game board");
+                    alert.show();}
+                case "Wall" -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("Invalid move - You Stuck in the wall");
+                    alert.show();}
+                case "UserSolvedTheMaze" -> {
+                    int rowViewModel = viewModel.getPlayerRow();
+                    int colViewModel = viewModel.getPlayerCol();
+                    setPlayerPosition(rowViewModel, colViewModel);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("You won!! wowo!");
+                    alert.show();
                 }
             }
-        }
-    }
+        }}
+
     public void activeDrawMaze(){
         mazeDisplayer.drawMaze(viewMaze);
     }

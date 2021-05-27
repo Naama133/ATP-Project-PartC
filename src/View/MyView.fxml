@@ -86,7 +86,7 @@
     <center>
         <Pane BorderPane.alignment="CENTER">
             <children>
-                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNamePlayer="./resources/images/balu.jpg" imageFileNameWall="./resources/images/wall.jpg" onKeyPressed="#keyPressed" width="400.0" />
+                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNamePlayer="./resources/images/balu.jpg" imageFileNameWall="./resources/images/wall.jpg" imageFileNameStartPosition="./resources/images/startPosition.png" imageFileNameGoalPosition="./resources/images/endPosition.jpg" onKeyPressed="#keyPressed" width="400.0" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

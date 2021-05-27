@@ -17,6 +17,16 @@ public class MazeDisplayer extends Canvas {
 
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
+    StringProperty imageFileNameStartPosition = new SimpleStringProperty();
+    StringProperty imageFileNameGoalPosition = new SimpleStringProperty();
+
+    public void setImageFileNameStartPosition(String imageFileNameStartPosition) {
+        this.imageFileNameStartPosition.set(imageFileNameStartPosition);
+    }
+
+    public void setImageFileNameGoalPosition(String imageFileNameGoalPosition) {
+        this.imageFileNameGoalPosition.set(imageFileNameGoalPosition);
+    }
 
     private Maze mazeDisplay;
     private int PlayerRow = 0;
@@ -50,6 +60,14 @@ public class MazeDisplayer extends Canvas {
         return imageFileNamePlayer.get();
     }
 
+    public String getImageFileNameStartPosition() {
+        return imageFileNameStartPosition.get();
+    }
+
+    public String getImageFileNameGoalPosition() {
+        return imageFileNameGoalPosition.get();
+    }
+
     public void setImageFileNamePlayer(String imageFileNamePlayer) {
         this.imageFileNamePlayer.set(imageFileNamePlayer);
     }
@@ -78,6 +96,7 @@ public class MazeDisplayer extends Canvas {
             graphicsContext.clearRect(0, 0, canvasWidth, canvasHeight); //clearRect is the attribute that draw over the canvas
 
             drawMazeWalls(graphicsContext, rows, cols, cellHeight, cellWidth);
+            drawMazeStartAndGoal(graphicsContext, cellHeight, cellWidth);
             drawMazePlayer(graphicsContext, cellHeight, cellWidth);
         }
     }
@@ -101,6 +120,39 @@ public class MazeDisplayer extends Canvas {
         }
     }
 
+    private void drawMazeStartAndGoal(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
+        Image StartImage = null;
+        Image GoalImage = null;
+        try {
+            StartImage = new Image(new FileInputStream(getImageFileNameStartPosition()));
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no Start image");
+        }
+        try {
+            GoalImage = new Image(new FileInputStream(getImageFileNameGoalPosition()));
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no Goal image");
+        }
+        double x_Start = mazeDisplay.getStartPosition().getRowIndex() * cellWidth;
+        double y_Start = mazeDisplay.getStartPosition().getColumnIndex() * cellHeight;
+        double x_Goal = mazeDisplay.getGoalPosition().getRowIndex() * cellWidth;
+        double y_Goal = mazeDisplay.getGoalPosition().getColumnIndex() * cellHeight;
+        System.out.println("dosp");
+        System.out.println(""+ mazeDisplay.getStartPosition().getRowIndex() + " " + mazeDisplay.getStartPosition().getColumnIndex());
+        System.out.println(""+ mazeDisplay.getGoalPosition().getRowIndex() + " " + mazeDisplay.getGoalPosition().getColumnIndex());
+
+        graphicsContext.setFill(Color.BLUEVIOLET); //the color that we want to add in our draw
+        if(StartImage== null)
+            graphicsContext.fillRect(x_Start, y_Start, cellWidth, cellHeight);
+        else
+            graphicsContext.drawImage(StartImage, x_Start, y_Start, cellWidth, cellHeight);
+        graphicsContext.setFill(Color.GREENYELLOW); //the color that we want to add in our draw
+        if(GoalImage== null)
+            graphicsContext.fillRect(x_Goal, y_Goal, cellWidth, cellHeight);
+        else
+            graphicsContext.drawImage(GoalImage, x_Goal, y_Goal, cellWidth, cellHeight);
+    }
+
     private void drawMazeWalls(GraphicsContext graphicsContext, int rows, int cols, double cellHeight, double cellWidth) {
         Image wallImage = null;
         try {
@@ -108,7 +160,6 @@ public class MazeDisplayer extends Canvas {
         } catch (FileNotFoundException e) {
             System.out.println("There is no wall image");
         }
-
 
         graphicsContext.setFill(Color.RED); //the color that we want to add in our draw
 

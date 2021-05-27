@@ -2,6 +2,7 @@ package ViewModel;
 
 import Model.IModel;
 import algorithms.mazeGenerators.Maze;
+import javafx.scene.control.Alert;
 import javafx.scene.input.KeyEvent;
 
 import java.util.Observable;
@@ -34,32 +35,29 @@ public class MyViewModel extends Observable implements Observer {
 
     @Override
     public void update(Observable o, Object arg) { //create maze or move character
-        if (o instanceof IModel){
-            if (maze == null){
+        String action = arg.toString();
+        if (o instanceof IModel) {
+            if (action.equals("ModelGenerateMaze")) {
                 this.maze = model.getMaze();
-
+                this.playerRow = model.getPlayerRow();
+                this.playerCol = model.getPlayerCol();
             }
-            else {
-                Maze modelMaze = model.getMaze();// give me the current model maze
-                //Not Generate maze
-                if (modelMaze == this.maze) {//if the maze not change is a Move Character.
-                    int pRow = model.getPlayerRow();
-                    int pCol = model.getPlayerCol();
-                    if (this.playerRow == pRow && this.playerCol == pCol) { // Solve Maze
-                        model.getSolution();
-                    }
-                    else{
-                        this.playerRow = pRow;
-                        this.playerCol = pCol;
-                    }
-                }
-                else
-                    this.maze = modelMaze;
+            else if (action.equals("ModelUpdatePlayerPosition")) {
+                this.playerRow = model.getPlayerRow();
+                this.playerCol = model.getPlayerCol();
             }
-            setChanged(); // let know the view we done
-            notifyObservers();
+            else if (action.equals("ModelSolvedMaze")) {
+                model.getSolution();}
+            else if(action.equals("BoundariesProblem") || action.equals("Wall")){
+                //do nothing, pass the same message to the View
+            }
+            else if (action.equals("UserSolvedTheMaze")) {
+                this.playerRow = model.getPlayerRow();
+                this.playerCol = model.getPlayerCol();
+            }
         }
-
+        setChanged(); // let know the view we done
+        notifyObservers(action);
     }
 
     public void generateMaze(int row, int col) {
@@ -69,10 +67,16 @@ public class MyViewModel extends Observable implements Observer {
     public void movePlayer(KeyEvent keyEvent){ //we get from the model the user UP/DOWM.. and the Model knows 1 2 3...
         int direction = -1;
         switch (keyEvent.getCode()){
-            case UP -> direction = 1;
-            case DOWN -> direction = 2;
-            case LEFT -> direction = 3;
-            case RIGHT -> direction = 4;
+            //up, down, left, right
+            case DIGIT8 -> direction = 8;
+            case DIGIT2 -> direction = 2;
+            case DIGIT4 -> direction = 4;
+            case DIGIT6 -> direction = 6;
+            //diagonals
+            case DIGIT7 -> direction = 7;
+            case DIGIT9 -> direction = 9;
+            case DIGIT1 -> direction = 1;
+            case DIGIT3 -> direction = 3;
         }
         model.UpdatePlayerPosition(direction);
 
