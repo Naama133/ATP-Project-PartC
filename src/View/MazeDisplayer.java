@@ -14,11 +14,17 @@ import java.io.FileNotFoundException;
 
 //make sure it extends Canvas of JAVA (not AWT)
 public class MazeDisplayer extends Canvas {
-
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
     StringProperty imageFileNameStartPosition = new SimpleStringProperty();
     StringProperty imageFileNameGoalPosition = new SimpleStringProperty();
+    private Maze mazeDisplay;
+    private int PlayerRow = 0;
+    private int PlayerCol = 0;
+
+    public void setMazeDisplay(Maze mazeDisplay) {
+        this.mazeDisplay = mazeDisplay;
+    }
 
     public void setImageFileNameStartPosition(String imageFileNameStartPosition) {
         this.imageFileNameStartPosition.set(imageFileNameStartPosition);
@@ -27,10 +33,6 @@ public class MazeDisplayer extends Canvas {
     public void setImageFileNameGoalPosition(String imageFileNameGoalPosition) {
         this.imageFileNameGoalPosition.set(imageFileNameGoalPosition);
     }
-
-    private Maze mazeDisplay;
-    private int PlayerRow = 0;
-    private int PlayerCol = 0;
 
     public int getPlayerRow() {
         return PlayerRow;
@@ -73,10 +75,10 @@ public class MazeDisplayer extends Canvas {
     }
 
 
-    public void drawMaze(Maze maze) {
+/*    public void drawMaze(Maze maze) {
         this.mazeDisplay = maze;
         draw();
-    }
+    }*/
 
     private void draw() {
         if(mazeDisplay != null){
@@ -133,14 +135,10 @@ public class MazeDisplayer extends Canvas {
         } catch (FileNotFoundException e) {
             System.out.println("There is no Goal image");
         }
-        double x_Start = mazeDisplay.getStartPosition().getRowIndex() * cellWidth;
-        double y_Start = mazeDisplay.getStartPosition().getColumnIndex() * cellHeight;
-        double x_Goal = mazeDisplay.getGoalPosition().getRowIndex() * cellWidth;
-        double y_Goal = mazeDisplay.getGoalPosition().getColumnIndex() * cellHeight;
-        System.out.println("display");
-        System.out.println(""+ mazeDisplay.getStartPosition().getRowIndex() + " " + mazeDisplay.getStartPosition().getColumnIndex());
-        System.out.println(""+ mazeDisplay.getGoalPosition().getRowIndex() + " " + mazeDisplay.getGoalPosition().getColumnIndex());
-
+        double x_Start = mazeDisplay.getStartPosition().getColumnIndex() * cellWidth;
+        double y_Start = mazeDisplay.getStartPosition().getRowIndex() * cellHeight;
+        double x_Goal = mazeDisplay.getGoalPosition().getColumnIndex() * cellWidth;
+        double y_Goal = mazeDisplay.getGoalPosition().getRowIndex() * cellHeight;
         graphicsContext.setFill(Color.BLUEVIOLET); //the color that we want to add in our draw
         if(StartImage== null)
             graphicsContext.fillRect(x_Start, y_Start, cellWidth, cellHeight);

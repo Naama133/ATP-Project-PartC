@@ -70,7 +70,6 @@ public class MyViewController implements Initializable , Observer,IView {
         int rows = Integer.parseInt(textField_mazeRows.getText());
         int cols = Integer.parseInt(textField_mazeColumns.getText());
         viewModel.generateMaze(rows,cols);
-        setPlayerPosition(viewModel.getPlayerRow(),viewModel.getPlayerCol());
     }
 
     public void setPlayerPosition(int row, int col) {
@@ -107,7 +106,9 @@ public class MyViewController implements Initializable , Observer,IView {
             switch (action) {//maze creation
                 case "ModelGenerateMaze" -> {
                     viewMaze = viewModel.getMaze(); //new maze have been created
-                    activeDrawMaze();}
+                    mazeDisplayer.setMazeDisplay(viewMaze);
+                    setPlayerPosition(viewModel.getPlayerRow(), viewModel.getPlayerCol());
+                }
                 case "ModelUpdatePlayerPosition" -> {
                     int rowViewModel = viewModel.getPlayerRow();
                     int colViewModel = viewModel.getPlayerCol();
@@ -136,7 +137,4 @@ public class MyViewController implements Initializable , Observer,IView {
             }
         }}
 
-    public void activeDrawMaze(){
-        mazeDisplayer.drawMaze(viewMaze);
-    }
 }

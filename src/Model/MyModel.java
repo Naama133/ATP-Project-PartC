@@ -54,9 +54,6 @@ public class MyModel extends Observable implements IModel {
         this.modelMaze  = maze;
         this.PlayerRow =maze.getStartPosition().getRowIndex();
         this.PlayerCol = maze.getStartPosition().getColumnIndex();
-        System.out.println("maze");
-        System.out.println(maze.getStartPosition().toString());
-        System.out.println(maze.getGoalPosition().toString());
         setChanged();
         notifyObservers("ModelGenerateMaze");
 

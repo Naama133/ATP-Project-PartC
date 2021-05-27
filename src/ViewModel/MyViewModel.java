@@ -68,15 +68,16 @@ public class MyViewModel extends Observable implements Observer {
         int direction = -1;
         switch (keyEvent.getCode()){
             //up, down, left, right
-            case DIGIT8 -> direction = 8;
-            case DIGIT2 -> direction = 2;
-            case DIGIT4 -> direction = 4;
-            case DIGIT6 -> direction = 6;
+            //todo: check that numpad works + check answer on forum
+            case NUMPAD8, DIGIT8 -> direction = 8;
+            case DIGIT2, NUMPAD2 -> direction = 2;
+            case DIGIT4, NUMPAD4 -> direction = 4;
+            case DIGIT6, NUMPAD6 -> direction = 6;
             //diagonals
-            case DIGIT7 -> direction = 7;
-            case DIGIT9 -> direction = 9;
-            case DIGIT1 -> direction = 1;
-            case DIGIT3 -> direction = 3;
+            case DIGIT7, NUMPAD7 -> direction = 7;
+            case DIGIT9, NUMPAD9 -> direction = 9;
+            case DIGIT1, NUMPAD1 -> direction = 1;
+            case DIGIT3, NUMPAD3 -> direction = 3;
         }
         model.UpdatePlayerPosition(direction);
 
