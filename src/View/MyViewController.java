@@ -90,11 +90,9 @@ public class MyViewController implements Initializable , Observer,IView {
     }
 
     public void solveMaze(ActionEvent actionEvent) {
-        viewModel.solveMaze();
         mazeDisplayer.ChangeDrawSolution();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("hint...");
-        alert.show();
+        viewModel.solveMaze();
+
     }
 
     //event handler - listen to key press event
@@ -141,6 +139,11 @@ public class MyViewController implements Initializable , Observer,IView {
                     setPlayerPosition(rowViewModel, colViewModel);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("You won!! wowo!");
+                    alert.show();
+                }
+                case "InvalidMazeSize" -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("Invalid parameter row/column - must be bigger then 1.");
                     alert.show();
                 }
             }

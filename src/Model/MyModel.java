@@ -52,7 +52,7 @@ public class MyModel extends Observable implements IModel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //ArrayList<AState> solutionPath = modelMazeSolution.getSolutionPath();
+
         setChanged();
         notifyObservers("ModelSolvedMaze");
     }
@@ -63,6 +63,10 @@ public class MyModel extends Observable implements IModel {
     }
 
     public void generateMaze(int rows, int cols){ //create Maze
+       String action = "ModelGenerateMaze";
+        if (rows < 2 || cols < 2)
+            action = "InvalidMazeSize";
+        else{
         IMazeGenerator generator = new MyMazeGenerator();  //todo : get from config file
         Maze maze = null;
         try {
@@ -72,9 +76,10 @@ public class MyModel extends Observable implements IModel {
         }
         this.modelMaze  = maze;
         this.PlayerRow =maze.getStartPosition().getRowIndex();
-        this.PlayerCol = maze.getStartPosition().getColumnIndex();
+        this.PlayerCol = maze.getStartPosition().getColumnIndex();}
+
         setChanged();
-        notifyObservers("ModelGenerateMaze");
+        notifyObservers(action);
 
     }
 

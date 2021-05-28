@@ -15,6 +15,8 @@ public class MyViewModel extends Observable implements Observer {
     private int playerCol;
     private Solution solution;
 
+
+
     //viewModel is observer of model
     public MyViewModel(IModel Model) {
         model = Model;
@@ -51,7 +53,7 @@ public class MyViewModel extends Observable implements Observer {
             else if (action.equals("ModelSolvedMaze")) {
                 solution = model.getSolution();
             }
-            else if(action.equals("BoundariesProblem") || action.equals("Wall")){
+            else if(action.equals("BoundariesProblem") || action.equals("Wall") || action.equals("InvalidMazeSize")){
                 //do nothing, pass the same message to the View
             }
             else if (action.equals("UserSolvedTheMaze")) {
@@ -71,7 +73,7 @@ public class MyViewModel extends Observable implements Observer {
         int direction = -1;
         switch (keyEvent.getCode()){
             //up, down, left, right
-            //todo: check that numpad works + check answer on forum
+            //todo:  check answer on forum
             case NUMPAD8, DIGIT8 -> direction = 8;
             case DIGIT2, NUMPAD2 -> direction = 2;
             case DIGIT4, NUMPAD4 -> direction = 4;
@@ -93,4 +95,6 @@ public class MyViewModel extends Observable implements Observer {
     public Solution getSolution (){
         return solution;
     }
+
+
 }

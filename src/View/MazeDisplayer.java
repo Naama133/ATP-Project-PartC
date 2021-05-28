@@ -21,6 +21,8 @@ public class MazeDisplayer extends Canvas {
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
     StringProperty imageFileNameStartPosition = new SimpleStringProperty();
     StringProperty imageFileNameGoalPosition = new SimpleStringProperty();
+    StringProperty imageFileNameSolution = new SimpleStringProperty();
+
     private Maze mazeDisplay;
     private int PlayerRow = 0;
     private int PlayerCol = 0;
@@ -91,7 +93,13 @@ public class MazeDisplayer extends Canvas {
     public void setImageFileNamePlayer(String imageFileNamePlayer) {
         this.imageFileNamePlayer.set(imageFileNamePlayer);
     }
+    public String getImageFileNameSolution() {
+        return imageFileNameSolution.get();
+    }
 
+    public void setImageFileNameSolution(String imageFileNameSolution) {
+        this.imageFileNameSolution.set(imageFileNameSolution);
+    }
 
     private void draw() {
         if(mazeDisplay != null){
@@ -122,18 +130,17 @@ public class MazeDisplayer extends Canvas {
     }
 
     private void drawSolution(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
-        //Image wallImage = null;
-/*        try {
-            wallImage = new Image(new FileInputStream(getImageFileNameWall()));
+        Image solutionImage = null;
+        try {
+            solutionImage = new Image(new FileInputStream(getImageFileNameSolution()));
         } catch (FileNotFoundException e) {
-            System.out.println("There is no wall image");
-        }*/
+            System.out.println("There is no image for the solution");
+        }
 
         graphicsContext.setFill(Color.RED); //the color that we want to add in our draw
         ArrayList<AState> solutionPath = solution.getSolutionPath();
 
         for (int i = 0; i < solutionPath.size(); i++) {
-            //{" + this.my_row + "," + this.my_col + "}"
             String position = solutionPath.get(i).toString();
             int index = position.indexOf(",");
             String posX = position.substring(1,index);
@@ -141,10 +148,10 @@ public class MazeDisplayer extends Canvas {
 
             double x = Integer.parseInt(posX) * cellWidth;
             double y = Integer.parseInt(posY) * cellHeight;
-            //if(wallImage== null)
-            graphicsContext.fillRect(y, x, cellWidth, cellHeight);
-/*            else
-                graphicsContext.drawImage(wallImage, x, y, cellWidth, cellHeight);*/
+            if(solutionImage== null)
+                graphicsContext.fillRect(y, x, cellWidth, cellHeight);
+            else
+                graphicsContext.drawImage(solutionImage, y, x, cellWidth, cellHeight);
         }
     }
 
@@ -221,4 +228,6 @@ public class MazeDisplayer extends Canvas {
             }
         }
     }
+
+
 }
