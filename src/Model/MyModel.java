@@ -3,8 +3,10 @@ package Model;
 import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
+import algorithms.search.*;
 import javafx.scene.control.Alert;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -12,11 +14,16 @@ public class MyModel extends Observable implements IModel {
     private Maze modelMaze;
     private int PlayerRow;
     private int PlayerCol;
+    private Solution modelMazeSolution;
+    private SearchableMaze searchableMaze;
+    private ISearchingAlgorithm searcher;
 
     public MyModel() {
-        this.modelMaze = null;
-        this.PlayerRow = 0;
-        this.PlayerCol = 0;
+        modelMaze = null;
+        PlayerRow = 0;
+        PlayerCol = 0;
+        modelMazeSolution = null;
+        searchableMaze = null;
     }
 
     public Maze getMaze(){
@@ -32,19 +39,31 @@ public class MyModel extends Observable implements IModel {
     }
 
     @Override
-    public void solveMaze(Maze maze) { //todo
+    public void solveMaze() {
         //Solving Maze
+        try {
+            searchableMaze = new SearchableMaze(modelMaze);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        searcher = new BestFirstSearch(); //todo : get from config file
+        try {
+            modelMazeSolution = searcher.solve(searchableMaze);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //ArrayList<AState> solutionPath = modelMazeSolution.getSolutionPath();
         setChanged();
         notifyObservers("ModelSolvedMaze");
     }
 
     @Override
-    public void getSolution() { //todo
-        //return solution
+    public Solution getSolution() {
+        return modelMazeSolution;
     }
 
     public void generateMaze(int rows, int cols){ //create Maze
-        IMazeGenerator generator = new MyMazeGenerator();
+        IMazeGenerator generator = new MyMazeGenerator();  //todo : get from config file
         Maze maze = null;
         try {
             maze = generator.generate(rows,cols);
@@ -136,11 +155,13 @@ public class MyModel extends Observable implements IModel {
                 alert.show();
         }
         String currPlayerPosition = "{" + PlayerRow + "," + PlayerCol + "}";
-        if(currPlayerPosition.equals(modelMaze.getGoalPosition().toString()))
+        if(currPlayerPosition.equals(modelMaze.getGoalPosition().toString())) //todo dar: solve message again and again
             ActionMessage = "UserSolvedTheMaze";
         setChanged();
         notifyObservers(ActionMessage);
     }
+
+    //todo dar: checkBox to choose the theme of the game (and music?)
 
     @Override
     public void assignObserver(Observer O) {

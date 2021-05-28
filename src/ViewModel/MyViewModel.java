@@ -2,7 +2,7 @@ package ViewModel;
 
 import Model.IModel;
 import algorithms.mazeGenerators.Maze;
-import javafx.scene.control.Alert;
+import algorithms.search.Solution;
 import javafx.scene.input.KeyEvent;
 
 import java.util.Observable;
@@ -13,12 +13,14 @@ public class MyViewModel extends Observable implements Observer {
     private Maze maze;
     private int playerRow;
     private int playerCol;
+    private Solution solution;
 
     //viewModel is observer of model
-    public MyViewModel(IModel model) {
-        this.model = model;
-        this.model.assignObserver(this);
-        this.maze = null;
+    public MyViewModel(IModel Model) {
+        model = Model;
+        model.assignObserver(this);
+        maze = null;
+        solution = null;
 
     }
     public int getPlayerRow() {
@@ -47,7 +49,8 @@ public class MyViewModel extends Observable implements Observer {
                 this.playerCol = model.getPlayerCol();
             }
             else if (action.equals("ModelSolvedMaze")) {
-                model.getSolution();}
+                solution = model.getSolution();
+            }
             else if(action.equals("BoundariesProblem") || action.equals("Wall")){
                 //do nothing, pass the same message to the View
             }
@@ -83,13 +86,11 @@ public class MyViewModel extends Observable implements Observer {
 
     }
 
-    public void solveMaze(Maze maze){
-        model.solveMaze(maze);
+    public void solveMaze(){
+        model.solveMaze();
     }
 
-    public void getSolution (){
-        model.getSolution();
+    public Solution getSolution (){
+        return solution;
     }
-
-
 }

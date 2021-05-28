@@ -1,6 +1,8 @@
 package View;
 
 import algorithms.mazeGenerators.Maze;
+import algorithms.search.AState;
+import algorithms.search.Solution;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -11,6 +13,7 @@ import javafx.beans.property.StringProperty;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 //make sure it extends Canvas of JAVA (not AWT)
 public class MazeDisplayer extends Canvas {
@@ -22,8 +25,18 @@ public class MazeDisplayer extends Canvas {
     private int PlayerRow = 0;
     private int PlayerCol = 0;
 
+    private Boolean drawSolution = false;
+    private Solution solution = null;
+
     public void setMazeDisplay(Maze mazeDisplay) {
         this.mazeDisplay = mazeDisplay;
+    }
+
+    public void ChangeDrawSolution() {
+        if(drawSolution)
+            drawSolution=false;
+        else
+            drawSolution=true;
     }
 
     public void setImageFileNameStartPosition(String imageFileNameStartPosition) {
@@ -46,6 +59,11 @@ public class MazeDisplayer extends Canvas {
         PlayerRow = Row;
         PlayerCol = Col;
         draw(); //change the maze (draw again) because player moved
+    }
+
+    public void DrawWhenSolve(Solution ViewSolution){
+        solution=ViewSolution;
+        draw();
     }
 
     //intellij know the StringProperty have a string, so it returns the String it contains
@@ -75,11 +93,6 @@ public class MazeDisplayer extends Canvas {
     }
 
 
-/*    public void drawMaze(Maze maze) {
-        this.mazeDisplay = maze;
-        draw();
-    }*/
-
     private void draw() {
         if(mazeDisplay != null){
 
@@ -98,8 +111,40 @@ public class MazeDisplayer extends Canvas {
             graphicsContext.clearRect(0, 0, canvasWidth, canvasHeight); //clearRect is the attribute that draw over the canvas
 
             drawMazeWalls(graphicsContext, rows, cols, cellHeight, cellWidth);
+            if(drawSolution==true) //todo: delete the solve after create new maze + and after press again the hit button
+                //todo: problem - show or delete the solution after press key
+                //todo: it's ugly!
+                drawSolution(graphicsContext, cellHeight, cellWidth);
             drawMazeStartAndGoal(graphicsContext, cellHeight, cellWidth);
             drawMazePlayer(graphicsContext, cellHeight, cellWidth);
+
+        }
+    }
+
+    private void drawSolution(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
+        //Image wallImage = null;
+/*        try {
+            wallImage = new Image(new FileInputStream(getImageFileNameWall()));
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no wall image");
+        }*/
+
+        graphicsContext.setFill(Color.RED); //the color that we want to add in our draw
+        ArrayList<AState> solutionPath = solution.getSolutionPath();
+
+        for (int i = 0; i < solutionPath.size(); i++) {
+            //{" + this.my_row + "," + this.my_col + "}"
+            String position = solutionPath.get(i).toString();
+            int index = position.indexOf(",");
+            String posX = position.substring(1,index);
+            String posY = position.substring(index+1, position.length()-1);
+
+            double x = Integer.parseInt(posX) * cellWidth;
+            double y = Integer.parseInt(posY) * cellHeight;
+            //if(wallImage== null)
+            graphicsContext.fillRect(y, x, cellWidth, cellHeight);
+/*            else
+                graphicsContext.drawImage(wallImage, x, y, cellWidth, cellHeight);*/
         }
     }
 

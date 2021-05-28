@@ -2,6 +2,7 @@ package View;
 
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
+import algorithms.search.Solution;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -30,6 +31,8 @@ public class MyViewController implements Initializable , Observer,IView {
     public MazeDisplayer mazeDisplayer;
     public Label playerRow;
     public Label playerCol;
+    private Solution ViewSolution;
+
 
     //StringProperty can listen to other StringProperty and change when the other change
     //we will bind them to the StringProperty of the labels when the scene initialize (by implement Initializable)
@@ -65,6 +68,14 @@ public class MyViewController implements Initializable , Observer,IView {
     }
 
 
+    public Solution getViewSolution() {
+        return ViewSolution;
+    }
+
+    public void setViewSolution(Solution viewSolution) {
+        ViewSolution = viewSolution;
+    }
+
     //handle maze creation
     public void generateMaze(ActionEvent actionEvent) {
         int rows = Integer.parseInt(textField_mazeRows.getText());
@@ -79,9 +90,10 @@ public class MyViewController implements Initializable , Observer,IView {
     }
 
     public void solveMaze(ActionEvent actionEvent) {
-        viewModel.solveMaze(viewMaze);
+        viewModel.solveMaze();
+        mazeDisplayer.ChangeDrawSolution();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("Solving maze...");
+        alert.setContentText("hint...");
         alert.show();
     }
 
@@ -100,8 +112,6 @@ public class MyViewController implements Initializable , Observer,IView {
     @Override
     public void update(Observable o, Object arg) {
         String action = arg.toString();
-        //todo startPosition and endposition (in each maze creation) + player position after it moves
-
         if(o instanceof MyViewModel) {
             switch (action) {//maze creation
                 case "ModelGenerateMaze" -> {
@@ -114,10 +124,9 @@ public class MyViewController implements Initializable , Observer,IView {
                     int colViewModel = viewModel.getPlayerCol();
                     setPlayerPosition(rowViewModel, colViewModel);}
                 case "ModelSolvedMaze" -> {
-                    viewModel.getSolution();
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("Solving maze...");
-                    alert.show();}
+                    ViewSolution = viewModel.getSolution();
+                    mazeDisplayer.DrawWhenSolve(ViewSolution);
+                    }
                 case "BoundariesProblem" -> {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("Invalid move - You went outside the boundaries of the game board");

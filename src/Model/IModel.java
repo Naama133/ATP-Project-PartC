@@ -1,6 +1,7 @@
 package Model;
 
 import algorithms.mazeGenerators.Maze;
+import algorithms.search.Solution;
 
 import java.util.Observer;
 
@@ -14,7 +15,7 @@ public interface IModel {
     public int getPlayerRow();
     public int getPlayerCol();
 
-    public void solveMaze(Maze maze);
-    public void getSolution();
+    public void solveMaze();
+    public Solution getSolution();
 
 }
