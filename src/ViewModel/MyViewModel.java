@@ -46,7 +46,7 @@ public class MyViewModel extends Observable implements Observer {
                 this.playerRow = model.getPlayerRow();
                 this.playerCol = model.getPlayerCol();
             }
-            else if (action.equals("ModelUpdatePlayerPosition")) {
+            else if (action.equals("ModelUpdatePlayerPosition") || action.equals("restartPlayerPosition")) { //todo dar
                 this.playerRow = model.getPlayerRow();
                 this.playerCol = model.getPlayerCol();
             }
@@ -88,6 +88,10 @@ public class MyViewModel extends Observable implements Observer {
         if (direction != -2)
             model.UpdatePlayerPosition(direction);
 
+    }
+
+    public void restartPlayer(){ //todo dar
+        model.UpdatePlayerPosition(0);
     }
 
     public void solveMaze(){

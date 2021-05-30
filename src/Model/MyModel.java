@@ -86,6 +86,11 @@ public class MyModel extends Observable implements IModel {
     public void UpdatePlayerPosition(int direction){ //Update Location of the character is the Maze
         String ActionMessage = "ModelUpdatePlayerPosition";
         switch (direction) {
+            case 0: //todo dar
+                PlayerRow =modelMaze.getStartPosition().getRowIndex();
+                PlayerCol = modelMaze.getStartPosition().getColumnIndex();
+                ActionMessage = "restartPlayerPosition";
+                break;
             case 8:
                 if(PlayerRow>0)
                     if(modelMaze.getMazeContent()[PlayerRow-1][PlayerCol]==0)

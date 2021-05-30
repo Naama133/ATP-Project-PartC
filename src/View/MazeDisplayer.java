@@ -23,12 +23,9 @@ public class MazeDisplayer extends Canvas {
     StringProperty imageFileNameStartPosition = new SimpleStringProperty();
     StringProperty imageFileNameGoalPosition = new SimpleStringProperty();
     StringProperty imageFileNameSolution = new SimpleStringProperty();
-
-
     private Maze mazeDisplay;
     private int PlayerRow = 0;
     private int PlayerCol = 0;
-
     private Boolean drawSolution = false;
     private Solution solution = null;
 
@@ -36,12 +33,21 @@ public class MazeDisplayer extends Canvas {
         this.mazeDisplay = mazeDisplay;
     }
 
-    public void ChangeDrawSolution() {
+    public void ChangeDrawSolution() { //todo dar: make sure we have a solution
         if(drawSolution)
             drawSolution=false;
         else
             drawSolution=true;
     }
+
+    public Solution getSolution() { //todo dar
+        return solution;
+    }
+
+    public Boolean getDrawSolution() { //todo dar
+        return drawSolution;
+    }
+
 
     public void setImageFileNameStartPosition(String imageFileNameStartPosition) {
         this.imageFileNameStartPosition.set(imageFileNameStartPosition);
@@ -127,7 +133,10 @@ public class MazeDisplayer extends Canvas {
             if(drawSolution==true) //todo: delete the solve after create new maze + and after press again the hit button
                 //todo: problem - show or delete the solution after press key
                 //todo: it's ugly!
-                drawSolution(graphicsContext, cellHeight, cellWidth);
+                if(solution==null) //todo dar: make sure we have a solution
+                    System.out.println("nonono");
+                else
+                    drawSolution(graphicsContext, cellHeight, cellWidth);
             drawMazeStartAndGoal(graphicsContext, cellHeight, cellWidth);
             drawMazePlayer(graphicsContext, cellHeight, cellWidth);
 

@@ -15,11 +15,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 /**
  * Controller of the fxml (MyView) - responses for the representation of a model
  * implements IView interface
@@ -28,6 +30,7 @@ public class MyViewController implements Initializable , Observer,IView {
 
     public Button generate_btn;
     public Button solution_btn;
+    public Button restart_btn; //todo dar - show fxml
     private MyViewModel viewModel;
     private Maze viewMaze;
     public TextField textField_mazeRows;
@@ -91,6 +94,7 @@ public class MyViewController implements Initializable , Observer,IView {
             alert.show();
         }
         solution_btn.setDisable(false);
+        restart_btn.setDisable(false); //todo dar
     }
 
     public void setPlayerPosition(int row, int col) {
@@ -150,11 +154,37 @@ public class MyViewController implements Initializable , Observer,IView {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("You won!! wowo!");
                     alert.show();
+                    /*  //Gif pop up
+                    Stage stage = new Stage();
+                    stage.setTitle("YOU WON!!!");
+                    VBox layout = new VBox();
+                    HBox H = new HBox(5);
+                    H.setAlignment(CENTER);
+                    layout.setAlignment(CENTER);
+                    javafx.scene.control.Button close = new javafx.scene.control.Button();
+                    close.setText("Close");
+                    H.getChildren().add(close);
+                    layout.spacingProperty().setValue(10);
+                    Image im = new Image("/Images/wonGif.gif");
+                    ImageView image = new ImageView(im);
+                    layout.getChildren().add(image);
+                    layout.getChildren().add(H);
+                    Scene scene = new Scene(layout, 520, 350);
+                    scene.getStylesheets().add(getClass().getResource("/View/LoadScene.css").toExternalForm());
+                    stage.setScene(scene);
+                    stage.show();*/
                 }
                 case "InvalidMazeSize" -> {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("Invalid parameter row/column - must be bigger then 1 and max size 1000.");
                     alert.show();
+                }
+                case "restartPlayerPosition" -> { //todo dar
+                    int rowViewModel = viewModel.getPlayerRow();
+                    int colViewModel = viewModel.getPlayerCol();
+                    if(mazeDisplayer.getSolution()!=null && mazeDisplayer.getDrawSolution()==true)
+                        mazeDisplayer.ChangeDrawSolution();
+                    setPlayerPosition(rowViewModel, colViewModel);
                 }
             }
         }}
@@ -183,5 +213,9 @@ public class MyViewController implements Initializable , Observer,IView {
                 mazeDisplayer.setWidth(mazeDisplayer.getWidth()*zoom);
             mazeDisplayer.drawMaze();
         }
+    }
+
+    public void restartMaze(ActionEvent actionEvent) {//todo dar
+        viewModel.restartPlayer();
     }
 }

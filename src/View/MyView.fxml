@@ -32,6 +32,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <Label text="Maze rows:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                     <Label text="Maze columns:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
@@ -39,11 +40,12 @@
                     <TextField fx:id="textField_mazeColumns" text="10" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     <Button fx:id="generate_btn" onAction="#generateMaze" prefHeight="25.0" prefWidth="167.0" text="Generate Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                     <Button fx:id="solution_btn" cancelButton="true" disable="true" onAction="#solveMaze" prefHeight="25.0" prefWidth="167.0" text="Show/Hide Maze Solution" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-                    <Label GridPane.rowIndex="4" />
-                    <Label text="Player Column:" GridPane.rowIndex="5" />
-                    <Label text="Player Row:" GridPane.rowIndex="4" />
-                    <Label fx:id="playerRow" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                    <Label fx:id="playerCol" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    <Button fx:id="restart_btn" cancelButton="true" disable="true" onAction="#restartMaze" prefHeight="25.0" prefWidth="167.0" text="Restart the game" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                    <Label GridPane.rowIndex="5" />
+                    <Label text="Player Column:" GridPane.rowIndex="6" />
+                    <Label text="Player Row:" GridPane.rowIndex="5" />
+                    <Label fx:id="playerRow" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    <Label fx:id="playerCol" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                 </GridPane>
             </children>
             <padding>

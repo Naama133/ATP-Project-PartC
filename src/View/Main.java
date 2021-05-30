@@ -7,6 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.io.File;
 
 public class Main extends Application {
 
@@ -24,11 +27,21 @@ public class Main extends Application {
         viewModel.addObserver(view);
         //todo : add clean closer
         primaryStage.show();
+        //playAudio("resources/music/song.mp3"); //todo dar
+        //todo dar: add restart maze button
 
     }
 
+/*    protected void playAudio(String audio) { //todo dar
+        String soundTrack = audio;
+        Media music = new Media(new File(soundTrack).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(music);
+        mediaPlayer.play();
+    }*/
 
     public static void main(String[] args) {
         launch(args);
     }
 }
+
+
