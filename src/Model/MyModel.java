@@ -17,7 +17,6 @@ import java.util.Observable;
 import java.util.Observer;
 import Server.Configurations;
 
-
 public class MyModel extends Observable implements IModel {
     private static MyModel ModelInstance;
     private Maze modelMaze;

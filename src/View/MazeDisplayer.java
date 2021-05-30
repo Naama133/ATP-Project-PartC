@@ -250,5 +250,4 @@ public class MazeDisplayer extends Canvas {
         draw();
     }
 
-
 }

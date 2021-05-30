@@ -33,5 +33,4 @@ public interface IView {
 
     //focus on mouse click position
     public void mouseClicked(MouseEvent mouseEvent);
-
 }
