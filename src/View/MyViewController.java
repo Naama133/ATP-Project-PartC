@@ -195,10 +195,10 @@ public class MyViewController implements Initializable , Observer,IView {
             }
         }}
 
-    //todo dar - check all exceptions of last projects - handle them here
-    //todo dar: not config - menu to choose generator, algorithm, number of threads
-    //todo dar - press key before we have any maze  - exception
-    //todo dar - move maze to the middle of the screen?
+    //todo - check all exceptions of last projects - handle them here
+    //todo - not config - menu to choose generator, algorithm, number of threads
+    //todo - press key before we have any maze  - exception
+    //todo - move maze to the middle of the screen?
     //todo - add button to set size of game board
     public void mouseScrolled(ScrollEvent scrollEvent) {
         if(scrollEvent.isControlDown()) {

@@ -34,7 +34,7 @@ public class MazeDisplayer extends Canvas {
         this.mazeDisplay = mazeDisplay;
     }
 
-    public void ChangeDrawSolution() { //todo dar: make sure we have a solution
+    public void ChangeDrawSolution() {
         if(drawSolution)
             drawSolution=false;
         else

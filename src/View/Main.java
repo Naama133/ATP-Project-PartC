@@ -27,10 +27,10 @@ public class Main extends Application {
         viewModel.addObserver(view);
         //todo : add clean closer
         primaryStage.show();
-        //playAudio("resources/music/song.mp3"); //todo dar
+        //playAudio("resources/music/song.mp3"); //todo
     }
 
-/*    protected void playAudio(String audio) { //todo dar
+/*    protected void playAudio(String audio) { //todo
         String soundTrack = audio;
         Media music = new Media(new File(soundTrack).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(music);
