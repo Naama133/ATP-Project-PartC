@@ -15,15 +15,16 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MyView.fxml"));
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("Maze Game");
-        Scene scene = new Scene(root, 1000, 800);
+        Scene scene = new Scene(root, 600, 600);
         primaryStage.setScene(scene);
-        primaryStage.show();
-
         IModel model = new MyModel();
         MyViewModel viewModel = new MyViewModel(model);
         MyViewController view =fxmlLoader.getController();
         view.setViewModel(viewModel);
         viewModel.addObserver(view);
+        //todo : add clean closer
+        primaryStage.show();
+
     }
 
 

@@ -8,6 +8,7 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -25,6 +26,8 @@ import java.util.ResourceBundle;
  */
 public class MyViewController implements Initializable , Observer,IView {
 
+    public Button generate_btn;
+    public Button solution_btn;
     private MyViewModel viewModel;
     private Maze viewMaze;
     public TextField textField_mazeRows;
@@ -33,8 +36,6 @@ public class MyViewController implements Initializable , Observer,IView {
     public Label playerRow;
     public Label playerCol;
     private Solution ViewSolution;
-
-
     //StringProperty can listen to other StringProperty and change when the other change
     //we will bind them to the StringProperty of the labels when the scene initialize (by implement Initializable)
     StringProperty updatePlayerRow = new SimpleStringProperty();
@@ -89,7 +90,7 @@ public class MyViewController implements Initializable , Observer,IView {
             alert.setContentText("Invalid input - Type only numbers, no spaces and signs.");
             alert.show();
         }
-
+        solution_btn.setDisable(false);
     }
 
     public void setPlayerPosition(int row, int col) {
