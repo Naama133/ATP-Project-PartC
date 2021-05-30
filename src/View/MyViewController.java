@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 
 import java.net.URL;
 import java.util.Observable;
@@ -78,9 +79,17 @@ public class MyViewController implements Initializable , Observer,IView {
 
     //handle maze creation
     public void generateMaze(ActionEvent actionEvent) {
-        int rows = Integer.parseInt(textField_mazeRows.getText());
-        int cols = Integer.parseInt(textField_mazeColumns.getText());
-        viewModel.generateMaze(rows,cols);
+        try {
+            int rows = Integer.parseInt(textField_mazeRows.getText());
+            int cols = Integer.parseInt(textField_mazeColumns.getText());
+            viewModel.generateMaze(rows, cols);
+        }
+        catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Invalid input - Type only numbers, no spaces and signs.");
+            alert.show();
+        }
+
     }
 
     public void setPlayerPosition(int row, int col) {
@@ -143,10 +152,35 @@ public class MyViewController implements Initializable , Observer,IView {
                 }
                 case "InvalidMazeSize" -> {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("Invalid parameter row/column - must be bigger then 1.");
+                    alert.setContentText("Invalid parameter row/column - must be bigger then 1 and max size 1000.");
                     alert.show();
                 }
             }
         }}
 
+    //todo dar - check all exceptions of last projects - handle them here
+    //todo dar: not config - menu to choose generator, algorithm, number of threads
+    //todo dar - press key before we have any maze  - exception
+    //todo dar - move maze to the middle of the screen?
+    //todo - add button to set size of game board
+    public void mouseScrolled(ScrollEvent scrollEvent) {
+        if(scrollEvent.isControlDown()) {
+            double zoom = 1.05;
+            double deltaY = scrollEvent.getDeltaY();
+            if (deltaY < 0) {
+                zoom = 2.0 - zoom;
+            }
+
+            double MaxHeight = mazeDisplayer.getParent().getBoundsInParent().getHeight();
+            double MaxWidth =mazeDisplayer.getParent().getBoundsInParent().getWidth();
+
+            double Dim = Math.min(MaxHeight,MaxWidth);
+
+            if(mazeDisplayer.getHeight()*zoom<Dim && mazeDisplayer.getHeight()*zoom>1)
+                mazeDisplayer.setHeight(mazeDisplayer.getHeight()*zoom);
+            if(mazeDisplayer.getWidth()*zoom<Dim && mazeDisplayer.getHeight()*zoom>1)
+                mazeDisplayer.setWidth(mazeDisplayer.getWidth()*zoom);
+            mazeDisplayer.drawMaze();
+        }
+    }
 }

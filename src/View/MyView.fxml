@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import View.*?>
 
-<BorderPane onMouseClicked="#mouseClicked" stylesheets="@MainStyle.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="View.MyViewController">
+<BorderPane onMouseClicked="#mouseClicked" onScroll="#mouseScrolled" stylesheets="@MainStyle.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="View.MyViewController">
     <left>
         <VBox prefHeight="200.0" prefWidth="178.0" spacing="5.0" BorderPane.alignment="CENTER">
             <children>

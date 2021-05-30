@@ -46,7 +46,7 @@ public class MyModel extends Observable implements IModel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        searcher = new BestFirstSearch(); //todo : get from config file
+        searcher = new BestFirstSearch(); //todo : get from user
         try {
             modelMazeSolution = searcher.solve(searchableMaze);
         } catch (Exception e) {
@@ -64,10 +64,10 @@ public class MyModel extends Observable implements IModel {
 
     public void generateMaze(int rows, int cols){ //create Maze
        String action = "ModelGenerateMaze";
-        if (rows < 2 || cols < 2)
+        if (rows < 2 || cols < 2 || rows >1000 || cols > 1000)
             action = "InvalidMazeSize";
         else{
-        IMazeGenerator generator = new MyMazeGenerator();  //todo : get from config file
+        IMazeGenerator generator = new MyMazeGenerator();  //todo : get from user
         Maze maze = null;
         try {
             maze = generator.generate(rows,cols);
@@ -160,13 +160,13 @@ public class MyModel extends Observable implements IModel {
                 alert.show();
         }
         String currPlayerPosition = "{" + PlayerRow + "," + PlayerCol + "}";
-        if(currPlayerPosition.equals(modelMaze.getGoalPosition().toString())) //todo dar: solve message again and again
+        if(currPlayerPosition.equals(modelMaze.getGoalPosition().toString())) //todo: solve message again and again
             ActionMessage = "UserSolvedTheMaze";
         setChanged();
         notifyObservers(ActionMessage);
     }
 
-    //todo dar: checkBox to choose the theme of the game (and music?)
+    //todo : checkBox to choose the theme of the game (and music?)
 
     @Override
     public void assignObserver(Observer O) {

@@ -3,6 +3,7 @@ package View;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.AState;
 import algorithms.search.Solution;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -22,6 +23,7 @@ public class MazeDisplayer extends Canvas {
     StringProperty imageFileNameStartPosition = new SimpleStringProperty();
     StringProperty imageFileNameGoalPosition = new SimpleStringProperty();
     StringProperty imageFileNameSolution = new SimpleStringProperty();
+
 
     private Maze mazeDisplay;
     private int PlayerRow = 0;
@@ -101,6 +103,7 @@ public class MazeDisplayer extends Canvas {
         this.imageFileNameSolution.set(imageFileNameSolution);
     }
 
+
     private void draw() {
         if(mazeDisplay != null){
 
@@ -112,6 +115,8 @@ public class MazeDisplayer extends Canvas {
 
             double cellHeight = canvasHeight / rows;
             double cellWidth = canvasWidth / cols;
+
+
 
             //define where to draw over the canvas
             GraphicsContext graphicsContext = getGraphicsContext2D();
@@ -227,6 +232,10 @@ public class MazeDisplayer extends Canvas {
                 }
             }
         }
+    }
+
+    public void drawMaze(){
+        draw();
     }
 
 

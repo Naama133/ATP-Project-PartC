@@ -74,6 +74,7 @@ public class MyViewModel extends Observable implements Observer {
         switch (keyEvent.getCode()){
             //up, down, left, right
             //todo:  check answer on forum
+            case CONTROL -> direction = -2;// ignore
             case NUMPAD8, DIGIT8 -> direction = 8;
             case DIGIT2, NUMPAD2 -> direction = 2;
             case DIGIT4, NUMPAD4 -> direction = 4;
@@ -84,7 +85,8 @@ public class MyViewModel extends Observable implements Observer {
             case DIGIT1, NUMPAD1 -> direction = 1;
             case DIGIT3, NUMPAD3 -> direction = 3;
         }
-        model.UpdatePlayerPosition(direction);
+        if (direction != -2)
+            model.UpdatePlayerPosition(direction);
 
     }
 
