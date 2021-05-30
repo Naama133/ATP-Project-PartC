@@ -73,12 +73,12 @@ public class MyViewModel extends Observable implements Observer {
         int direction = -1;
         switch (keyEvent.getCode()){
             //up, down, left, right
-            //todo:  check answer on forum
+            //todo:  check answer on forum - add to help section the valid keys (add keys button?)
             case CONTROL -> direction = -2;// ignore
-            case NUMPAD8, DIGIT8 -> direction = 8;
-            case DIGIT2, NUMPAD2 -> direction = 2;
-            case DIGIT4, NUMPAD4 -> direction = 4;
-            case DIGIT6, NUMPAD6 -> direction = 6;
+            case NUMPAD8, DIGIT8, UP -> direction = 8;
+            case DIGIT2, NUMPAD2, DOWN -> direction = 2;
+            case DIGIT4, NUMPAD4, LEFT -> direction = 4;
+            case DIGIT6, NUMPAD6, RIGHT -> direction = 6;
             //diagonals
             case DIGIT7, NUMPAD7 -> direction = 7;
             case DIGIT9, NUMPAD9 -> direction = 9;
