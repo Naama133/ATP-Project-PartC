@@ -15,17 +15,23 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MyView.fxml"));
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("Maze Game");
         Scene scene = new Scene(root, 600, 600);
         primaryStage.setScene(scene);
-        IModel model = new MyModel();
-        MyViewModel viewModel = new MyViewModel(model);
+        IModel model = MyModel.getInstance();
+        MyViewModel viewModel = MyViewModel.getInstance();
         MyViewController view =fxmlLoader.getController();
-        view.setViewModel(viewModel);
+        //view.setViewModel(viewModel);
         viewModel.addObserver(view);
         //todo : add clean closer
+
+        primaryStage.setOnCloseRequest(e->{
+            model.shutDownServers();
+        });
+
         primaryStage.show();
         //playAudio("resources/music/song.mp3"); //todo
     }

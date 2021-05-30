@@ -1,6 +1,7 @@
 package ViewModel;
 
 import Model.IModel;
+import Model.MyModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
 import javafx.scene.input.KeyEvent;
@@ -9,22 +10,32 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class MyViewModel extends Observable implements Observer {
+    private static MyViewModel ViewModelInstance;
     private IModel model;
     private Maze maze;
     private int playerRow;
     private int playerCol;
     private Solution solution;
 
-
-
     //viewModel is observer of model
-    public MyViewModel(IModel Model) {
-        model = Model;
+    private MyViewModel() {
+        model = MyModel.getInstance();
         model.assignObserver(this);
         maze = null;
         solution = null;
-
     }
+
+    public static MyViewModel getInstance() {
+        if (ViewModelInstance == null){
+            ViewModelInstance = new MyViewModel();
+        }
+        return ViewModelInstance;
+    }
+
+    public void deleteSolution() {
+        solution = null;
+    }
+
     public int getPlayerRow() {
         return playerRow;
     }
@@ -45,6 +56,7 @@ public class MyViewModel extends Observable implements Observer {
                 this.maze = model.getMaze();
                 this.playerRow = model.getPlayerRow();
                 this.playerCol = model.getPlayerCol();
+                deleteSolution();
             }
             else if (action.equals("ModelUpdatePlayerPosition") || action.equals("restartPlayerPosition")) { //todo dar
                 this.playerRow = model.getPlayerRow();

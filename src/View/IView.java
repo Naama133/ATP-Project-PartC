@@ -11,7 +11,7 @@ import ViewModel.*;
  */
 public interface IView {
 
-    public void setViewModel(MyViewModel viewModel);
+    //public void setViewModel(MyViewModel viewModel);
 
     public String getUpdatePlayerRow();
 

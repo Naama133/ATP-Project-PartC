@@ -134,10 +134,10 @@ public class MazeDisplayer extends Canvas {
             drawMazeWalls(graphicsContext, rows, cols, cellHeight, cellWidth);
             if(drawSolution)
                 if(solution==null) { //todo: check if needed (need to catch this no-solution exception before)
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setContentText("there is no solution to draw");
-                        alert.show();
-                    }
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("there is no solution to draw");
+                    alert.show();
+                }
                 else
                     drawSolution(graphicsContext, cellHeight, cellWidth);
             drawMazeStartAndGoal(graphicsContext, cellHeight, cellWidth);

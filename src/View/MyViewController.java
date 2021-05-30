@@ -1,12 +1,17 @@
 package View;
 
+import Model.IModel;
+import Model.MyModel;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,6 +27,9 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
 /**
  * Controller of the fxml (MyView) - responses for the representation of a model
  * implements IView interface
@@ -31,7 +39,7 @@ public class MyViewController implements Initializable , Observer,IView {
     public Button generate_btn;
     public Button solution_btn;
     public Button restart_btn;
-    private MyViewModel viewModel;
+    private MyViewModel viewModel = MyViewModel.getInstance();
     private Maze viewMaze;
     public TextField textField_mazeRows;
     public TextField textField_mazeColumns;
@@ -52,9 +60,10 @@ public class MyViewController implements Initializable , Observer,IView {
         playerCol.textProperty().bind(updatePlayerCol);
     }
 
-    public void setViewModel(MyViewModel viewModel) {
+/*    public void setViewModel(MyViewModel viewModel) {
+
         this.viewModel = viewModel;
-    }
+    }*/
 
     public String getUpdatePlayerRow() {
         return updatePlayerRow.get();
@@ -72,20 +81,12 @@ public class MyViewController implements Initializable , Observer,IView {
         this.updatePlayerCol.set("" + col);
     }
 
-
-    public Solution getViewSolution() {
-        return ViewSolution;
-    }
-
-    public void setViewSolution(Solution viewSolution) {
-        ViewSolution = viewSolution;
-    }
-
     //handle maze creation
     public void generateMaze(ActionEvent actionEvent) {
         if(mazeDisplayer.getDrawSolution())
             mazeDisplayer.ChangeDrawSolution();
         mazeDisplayer.deleteSolution();
+        ViewSolution=null;
         try {
             int rows = Integer.parseInt(textField_mazeRows.getText());
             int cols = Integer.parseInt(textField_mazeColumns.getText());
@@ -112,7 +113,6 @@ public class MyViewController implements Initializable , Observer,IView {
             viewModel.solveMaze();
         else
             mazeDisplayer.drawMaze();
-
     }
 
     //event handler - listen to key press event
@@ -144,7 +144,7 @@ public class MyViewController implements Initializable , Observer,IView {
                 case "ModelSolvedMaze" -> {
                     ViewSolution = viewModel.getSolution();
                     mazeDisplayer.DrawWhenSolve(ViewSolution);
-                    }
+                }
                 case "BoundariesProblem" -> {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("Invalid move - You went outside the boundaries of the game board");
@@ -186,11 +186,9 @@ public class MyViewController implements Initializable , Observer,IView {
                     alert.show();
                 }
                 case "restartPlayerPosition" -> {
-                    int rowViewModel = viewModel.getPlayerRow();
-                    int colViewModel = viewModel.getPlayerCol();
                     if(mazeDisplayer.getDrawSolution())
                         mazeDisplayer.ChangeDrawSolution();
-                    setPlayerPosition(rowViewModel, colViewModel);
+                    setPlayerPosition(viewModel.getPlayerRow(), viewModel.getPlayerCol());
                 }
             }
         }}
@@ -224,4 +222,5 @@ public class MyViewController implements Initializable , Observer,IView {
     public void restartMaze(ActionEvent actionEvent) {
         viewModel.restartPlayer();
     }
+
 }
