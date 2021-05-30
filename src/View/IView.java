@@ -10,7 +10,6 @@ import ViewModel.*;
  * interface - responses for the representation of a model
  */
 public interface IView {
-
     //public void setViewModel(MyViewModel viewModel);
 
     public String getUpdatePlayerRow();

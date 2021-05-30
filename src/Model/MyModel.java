@@ -95,6 +95,7 @@ public class MyModel extends Observable implements IModel {
         return modelMazeSolution;
     }
 
+
     public void generateMaze(int rows, int cols){ //create Maze
         String action = "ModelGenerateMaze";
         if (rows < 2 || cols < 2 || rows >1000 || cols > 1000)

@@ -222,5 +222,4 @@ public class MyViewController implements Initializable , Observer,IView {
     public void restartMaze(ActionEvent actionEvent) {
         viewModel.restartPlayer();
     }
-
 }

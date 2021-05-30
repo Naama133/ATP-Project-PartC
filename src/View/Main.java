@@ -31,7 +31,6 @@ public class Main extends Application {
         primaryStage.setOnCloseRequest(e->{
             model.shutDownServers();
         });
-
         primaryStage.show();
         //playAudio("resources/music/song.mp3"); //todo
     }
