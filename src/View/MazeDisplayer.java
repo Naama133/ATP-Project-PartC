@@ -27,6 +27,7 @@ public class MazeDisplayer extends Canvas {
     private int PlayerRow = 0;
     private int PlayerCol = 0;
     private Boolean drawSolution = false;
+
     private Solution solution = null;
 
     public void setMazeDisplay(Maze mazeDisplay) {
@@ -40,14 +41,17 @@ public class MazeDisplayer extends Canvas {
             drawSolution=true;
     }
 
-    public Solution getSolution() { //todo dar
+    public void deleteSolution() {
+        this.solution = null;
+    }
+
+    public Solution getSolution() {
         return solution;
     }
 
-    public Boolean getDrawSolution() { //todo dar
+    public Boolean getDrawSolution() {
         return drawSolution;
     }
-
 
     public void setImageFileNameStartPosition(String imageFileNameStartPosition) {
         this.imageFileNameStartPosition.set(imageFileNameStartPosition);
@@ -122,19 +126,18 @@ public class MazeDisplayer extends Canvas {
             double cellHeight = canvasHeight / rows;
             double cellWidth = canvasWidth / cols;
 
-
-
             //define where to draw over the canvas
             GraphicsContext graphicsContext = getGraphicsContext2D();
             //clear the canvas: (if we already draw over the canvas)
             graphicsContext.clearRect(0, 0, canvasWidth, canvasHeight); //clearRect is the attribute that draw over the canvas
 
             drawMazeWalls(graphicsContext, rows, cols, cellHeight, cellWidth);
-            if(drawSolution==true) //todo: delete the solve after create new maze + and after press again the hit button
-                //todo: problem - show or delete the solution after press key
-                //todo: it's ugly!
-                if(solution==null) //todo dar: make sure we have a solution
-                    System.out.println("nonono");
+            if(drawSolution)
+                if(solution==null) { //todo: check if needed (need to catch this no-solution exception before)
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setContentText("there is no solution to draw");
+                        alert.show();
+                    }
                 else
                     drawSolution(graphicsContext, cellHeight, cellWidth);
             drawMazeStartAndGoal(graphicsContext, cellHeight, cellWidth);

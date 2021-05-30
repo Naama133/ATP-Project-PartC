@@ -28,8 +28,6 @@ public class Main extends Application {
         //todo : add clean closer
         primaryStage.show();
         //playAudio("resources/music/song.mp3"); //todo dar
-        //todo dar: add restart maze button
-
     }
 
 /*    protected void playAudio(String audio) { //todo dar

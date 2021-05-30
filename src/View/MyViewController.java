@@ -30,7 +30,7 @@ public class MyViewController implements Initializable , Observer,IView {
 
     public Button generate_btn;
     public Button solution_btn;
-    public Button restart_btn; //todo dar - show fxml
+    public Button restart_btn;
     private MyViewModel viewModel;
     private Maze viewMaze;
     public TextField textField_mazeRows;
@@ -83,6 +83,9 @@ public class MyViewController implements Initializable , Observer,IView {
 
     //handle maze creation
     public void generateMaze(ActionEvent actionEvent) {
+        if(mazeDisplayer.getDrawSolution())
+            mazeDisplayer.ChangeDrawSolution();
+        mazeDisplayer.deleteSolution();
         try {
             int rows = Integer.parseInt(textField_mazeRows.getText());
             int cols = Integer.parseInt(textField_mazeColumns.getText());
@@ -94,7 +97,7 @@ public class MyViewController implements Initializable , Observer,IView {
             alert.show();
         }
         solution_btn.setDisable(false);
-        restart_btn.setDisable(false); //todo dar
+        restart_btn.setDisable(false);
     }
 
     public void setPlayerPosition(int row, int col) {
@@ -105,7 +108,10 @@ public class MyViewController implements Initializable , Observer,IView {
 
     public void solveMaze(ActionEvent actionEvent) {
         mazeDisplayer.ChangeDrawSolution();
-        viewModel.solveMaze();
+        if(mazeDisplayer.getSolution()==null)
+            viewModel.solveMaze();
+        else
+            mazeDisplayer.drawMaze();
 
     }
 
@@ -179,10 +185,10 @@ public class MyViewController implements Initializable , Observer,IView {
                     alert.setContentText("Invalid parameter row/column - must be bigger then 1 and max size 1000.");
                     alert.show();
                 }
-                case "restartPlayerPosition" -> { //todo dar
+                case "restartPlayerPosition" -> {
                     int rowViewModel = viewModel.getPlayerRow();
                     int colViewModel = viewModel.getPlayerCol();
-                    if(mazeDisplayer.getSolution()!=null && mazeDisplayer.getDrawSolution()==true)
+                    if(mazeDisplayer.getDrawSolution())
                         mazeDisplayer.ChangeDrawSolution();
                     setPlayerPosition(rowViewModel, colViewModel);
                 }
@@ -215,7 +221,7 @@ public class MyViewController implements Initializable , Observer,IView {
         }
     }
 
-    public void restartMaze(ActionEvent actionEvent) {//todo dar
+    public void restartMaze(ActionEvent actionEvent) {
         viewModel.restartPlayer();
     }
 }
