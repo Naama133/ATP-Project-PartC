@@ -33,6 +33,7 @@ import javafx.util.Duration;
  * Controller of the fxml (MyView) - responses for the representation of a model
  * implements IView interface
  */
+
 public class MyViewController implements Initializable , Observer,IView {
 
     public Button generate_btn;
