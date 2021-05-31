@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import View.*?>
 
-<BorderPane onMouseClicked="#mouseClicked" onScroll="#mouseScrolled" stylesheets="@MainStyle.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="View.MyViewController">
+<?import View.MazeDisplayer?>
+<BorderPane onMouseClicked="#mouseClicked" onScroll="#mouseScrolled" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
     <left>
         <VBox prefHeight="200.0" prefWidth="178.0" spacing="5.0" BorderPane.alignment="CENTER">
             <children>
@@ -81,12 +81,11 @@
                                 <MenuItem mnemonicParsing="false" text="Properties" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Exit">
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="About">
-                        </Menu>
+                        <Menu mnemonicParsing="false" text="Options">
+                            <items>
+                                <MenuItem fx:id="AboutButton" mnemonicParsing="false" onAction="#AboutWindow" text="About"/>
+                            </items>
+                        </Menu>>
                     </menus>
                 </MenuBar>
             </children>
@@ -95,7 +94,7 @@
     <center>
         <Pane BorderPane.alignment="CENTER">
             <children>
-                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNamePlayer="./resources/images/balu.jpg" imageFileNameWall="./resources/images/wall.jpg" imageFileNameStartPosition="./resources/images/startPosition.png" imageFileNameGoalPosition="./resources/images/endPosition.jpg" imageFileNameSolution="./resources/images/cookie.png" onKeyPressed="#keyPressed" width="400.0" />
+                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNameGoalPosition="./resources/images/endPosition.jpg" imageFileNamePlayer="./resources/images/balu.jpg" imageFileNameSolution="./resources/images/cookie.png" imageFileNameStartPosition="./resources/images/startPosition.png" imageFileNameWall="./resources/images/wall.jpg" onKeyPressed="#keyPressed" width="400.0" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

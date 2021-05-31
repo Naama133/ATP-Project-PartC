@@ -247,4 +247,9 @@ public class MyViewController implements Initializable , Observer,IView {
     public void restartMaze(ActionEvent actionEvent) {
         viewModel.restartPlayer();
     }
+
+    public void AboutWindow(ActionEvent actionEvent) {
+        System.out.println("hi");
+
+    }
 }
