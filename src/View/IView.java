@@ -20,16 +20,12 @@ public interface IView {
 
     public void setUpdatePlayerCol(int col);
 
-    public void generateMaze(ActionEvent actionEvent);
-
     public void setPlayerPosition(int row, int col);
-
-    public void solveMaze(ActionEvent actionEvent);
 
     //event handler - listen to key press event
     //keyEvent = argument of the event (we can use this to check with key is pressed)
     public void keyPressed(KeyEvent keyEvent);
 
     //focus on mouse click position
-    public void mouseClicked(MouseEvent mouseEvent);
+
 }
