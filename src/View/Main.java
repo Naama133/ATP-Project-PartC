@@ -7,11 +7,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import java.io.File;
 
 public class Main extends Application {
+
+    //todo - check all exceptions of last projects - handle them here
+    //todo - not config - menu to choose generator, algorithm, number of threads
+    //todo - press key before we have any maze  - exception
+    //todo - move maze to the middle of the screen?
+    //todo - add button to set size of game board
+    //todo - add comments to all files
+    //todo - no printStackTrace - all exceptions will be shown in alert window!
+    //todo - where to put a main file?
 
     @Override
     public void start(Stage primaryStage) throws Exception{
