@@ -205,16 +205,26 @@ public class MyViewController implements Initializable , Observer,IView {
             if (deltaY < 0) {
                 zoom = 2.0 - zoom;
             }
-
             double MaxHeight = mazeDisplayer.getParent().getBoundsInParent().getHeight();
             double MaxWidth =mazeDisplayer.getParent().getBoundsInParent().getWidth();
 
             double Dim = Math.min(MaxHeight,MaxWidth);
 
-            if(mazeDisplayer.getHeight()*zoom<Dim && mazeDisplayer.getHeight()*zoom>1)
-                mazeDisplayer.setHeight(mazeDisplayer.getHeight()*zoom);
-            if(mazeDisplayer.getWidth()*zoom<Dim && mazeDisplayer.getHeight()*zoom>1)
-                mazeDisplayer.setWidth(mazeDisplayer.getWidth()*zoom);
+            double newHeight = mazeDisplayer.getHeight()*zoom;
+            double newWidth = mazeDisplayer.getWidth()*zoom;
+
+            if(newHeight>Dim)
+                newHeight=Dim;
+            else if(newHeight<1)
+                newHeight=1;
+
+            if(newWidth>Dim)
+                newWidth=Dim;
+            else if(newWidth<1)
+                newWidth=1;
+
+            mazeDisplayer.setHeight(newHeight);
+            mazeDisplayer.setWidth(newWidth);
             mazeDisplayer.drawMaze();
         }
     }
