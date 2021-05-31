@@ -116,7 +116,6 @@ public class MazeDisplayer extends Canvas {
 
     private void draw() {
         if(mazeDisplay != null){
-
             //find the canvas sizes, and split into rows*cols cells
             double canvasHeight = getHeight();
             double canvasWidth = getWidth();

@@ -24,7 +24,7 @@ public class AboutController implements Initializable {
                 "\n" +
                 "\n" +
                 "Enjoy,\n" +
-                "Dar Abu & Naama Baruch\n";
+                "Dar Abu & Naama Baruch\n\n";
 
         aboutText.setText(about);
     }
