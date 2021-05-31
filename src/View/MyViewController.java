@@ -248,8 +248,44 @@ public class MyViewController implements Initializable , Observer,IView {
         viewModel.restartPlayer();
     }
 
-    public void AboutWindow(ActionEvent actionEvent) {
-        System.out.println("hi");
+    public void aboutWindow(ActionEvent actionEvent) {
+        //todo: create about scene
+        System.out.println("about");
+    }
+
+    public void helpWindow(ActionEvent actionEvent) {
+        //todo
+        System.out.println("help");
+
+    }
+
+    public void propertiesWindow(ActionEvent actionEvent) {
+        //todo
+        System.out.println("prop");
+
+    }
+
+    public void exitGame(ActionEvent actionEvent) {
+        //todo
+        System.out.println("exit");
+
+    }
+
+    public void loadGame(ActionEvent actionEvent) {
+        //todo
+        System.out.println("load");
+
+    }
+
+    public void saveGame(ActionEvent actionEvent) {
+        //todo
+        System.out.println("save");
+
+    }
+
+    public void newGame(ActionEvent actionEvent) {
+        //todo
+        System.out.println("new");
 
     }
 }
