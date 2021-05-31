@@ -22,7 +22,7 @@ public class HelpController implements Initializable {
                 "As you move through the maze, you should avoid getting stuck in the maze walls, and move solely on the tracks.\n " +
                 "Also, do not go beyond the boundaries of the maze.\n\n" +
                 "You can move in any direction (up, down, right and left), and also diagonally,\n"+
-                "Using the NUMPAD keys, Or by using the keyboard arrows (without diagonals).\n\n"+
+                "Using the NUMPAD keys, Or by using the keyboard arrows (only for up, down, right and left).\n\n"+
                 "NUMPAD options:\n"+
                 "Press \"4\" to go Left\n"+
                 "Press \"6\" to go Right\n"+
