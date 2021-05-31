@@ -32,7 +32,7 @@ public class Main extends Application {
         MyViewController view =fxmlLoader.getController();
         viewModel.addObserver(view);
         primaryStage.setOnCloseRequest(e->{  //todo : clean closer (X or exit button)
-            closeProgram(model);
+            view.checkExitWanted();
         });
         primaryStage.show();
     }

@@ -291,9 +291,26 @@ public class MyViewController implements Initializable , Observer,IView {
     }
 
     public void exitGame(ActionEvent actionEvent) {
-        //todo
-        System.out.println("exit");
+        checkExitWanted();
+    }
 
+    public void checkExitWanted(){
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Exit.fxml"));
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("FXML loading problem");
+            alert.show();
+        }
+        Scene scene = new Scene(root, 400, 250);
+        scene.getStylesheets().add(getClass().getResource("Exit.css").toExternalForm());
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL); //lock the window
+        stage.show();
     }
 
     public void loadGame(ActionEvent actionEvent) {
