@@ -67,18 +67,25 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Close" />
+                                <MenuItem mnemonicParsing="false" text="New" />
+                            </items>
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Save" />
+                            </items>
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Load" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Edit">
+                        <Menu mnemonicParsing="false" text="Options">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Delete" />
+                                <MenuItem mnemonicParsing="false" text="Properties" />
                             </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Exit">
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
-                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="About">
                         </Menu>
                     </menus>
                 </MenuBar>

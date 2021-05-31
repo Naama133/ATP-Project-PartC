@@ -24,26 +24,18 @@ public class Main extends Application {
         IModel model = MyModel.getInstance();
         MyViewModel viewModel = MyViewModel.getInstance();
         MyViewController view =fxmlLoader.getController();
-        //view.setViewModel(viewModel);
         viewModel.addObserver(view);
-        //todo : add clean closer
-
-        primaryStage.setOnCloseRequest(e->{
-            model.shutDownServers();
+        primaryStage.setOnCloseRequest(e->{  //todo : clean closer (X or exit button)
+            closeProgram(model);
         });
         primaryStage.show();
-        //playAudio("resources/music/song.mp3"); //todo
     }
 
-/*    protected void playAudio(String audio) { //todo
-        String soundTrack = audio;
-        Media music = new Media(new File(soundTrack).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(music);
-        mediaPlayer.play();
-    }*/
+    public void closeProgram(IModel model) {
+        model.shutDownServers();
+    }
 
     public static void main(String[] args) {
         launch(args);
     }
 }
-
