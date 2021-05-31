@@ -251,7 +251,9 @@ public class MyViewController implements Initializable , Observer,IView {
         try {
             root = fxmlLoader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("FXML loading problem");
+            alert.show();
         }
         Scene scene = new Scene(root, 450, 420);
         scene.getStylesheets().add(getClass().getResource("About.css").toExternalForm());
@@ -262,9 +264,23 @@ public class MyViewController implements Initializable , Observer,IView {
     }
 
     public void helpWindow(ActionEvent actionEvent) {
-        //todo
-        System.out.println("help");
-
+        Stage stage = new Stage();
+        stage.setTitle("Help");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("FXML loading problem");
+            alert.show();
+        }
+        Scene scene = new Scene(root, 750, 550);
+        scene.getStylesheets().add(getClass().getResource("Help.css").toExternalForm());
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL); //lock the window
+        stage.show();
     }
 
     public void propertiesWindow(ActionEvent actionEvent) {
