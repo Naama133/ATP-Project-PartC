@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
@@ -249,8 +250,21 @@ public class MyViewController implements Initializable , Observer,IView {
     }
 
     public void aboutWindow(ActionEvent actionEvent) {
-        //todo: create about scene
-        System.out.println("about");
+        Stage stage = new Stage();
+        stage.setTitle("About");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("About.fxml"));
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root, 450, 420);
+        scene.getStylesheets().add(getClass().getResource("About.css").toExternalForm());
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL); //lock the window
+        stage.show();
     }
 
     public void helpWindow(ActionEvent actionEvent) {
