@@ -12,10 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -29,6 +26,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Controller of the fxml (MyView) - responses for the representation of a model
@@ -52,18 +50,26 @@ public class MyViewController implements Initializable , Observer,IView {
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
 
+    //todo: add music button (play & stop) & add volume scale
+    Media gameSoundTrack = new Media(new File("./resources/music/JalebiBaby.mp3").toURI().toString());
+    MediaPlayer GameMediaPlayer = new MediaPlayer(gameSoundTrack);
+    Media winningSoundTrack = new Media(new File("./resources/music/WeAreTheChampions.mp3").toURI().toString());
+    MediaPlayer WinMediaPlayer = new MediaPlayer(winningSoundTrack);
+
     @Override
     //when scene uploads, active this function and bind labels
     //textProperty is StringProperty, we can bind those two textProperties
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playerRow.textProperty().bind(updatePlayerRow);
         playerCol.textProperty().bind(updatePlayerCol);
+        GameMediaPlayer.play();
+        GameMediaPlayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                GameMediaPlayer.seek(Duration.ZERO);
+            }
+        });
     }
-
-/*    public void setViewModel(MyViewModel viewModel) {
-
-        this.viewModel = viewModel;
-    }*/
 
     public String getUpdatePlayerRow() {
         return updatePlayerRow.get();
@@ -160,6 +166,14 @@ public class MyViewController implements Initializable , Observer,IView {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("You won!! wowo!");
                     alert.show();
+                    GameMediaPlayer.stop();
+                    WinMediaPlayer.play();
+                    WinMediaPlayer.setOnEndOfMedia(new Runnable() {
+                        @Override
+                        public void run() {
+                            GameMediaPlayer.play();
+                        }
+                    });
                     /*  //Gif pop up
                     Stage stage = new Stage();
                     stage.setTitle("YOU WON!!!");
@@ -198,6 +212,7 @@ public class MyViewController implements Initializable , Observer,IView {
     //todo - press key before we have any maze  - exception
     //todo - move maze to the middle of the screen?
     //todo - add button to set size of game board
+    //todo - add comments to all files
     public void mouseScrolled(ScrollEvent scrollEvent) {
         if(scrollEvent.isControlDown()) {
             double zoom = 1.05;
