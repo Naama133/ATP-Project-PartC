@@ -5,6 +5,7 @@ import Model.MyModel;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
+import com.sun.javafx.scene.ParentHelper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -289,7 +290,7 @@ public class MyViewController implements Initializable , Observer,IView {
 
     }
 
-    public void exitGame(ActionEvent actionEvent) {
+    public void exitGame(ActionEvent actionEvent) {//todo: need to check about the window -the primryStage despairs
         checkExitWanted();
     }
 

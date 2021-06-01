@@ -6,7 +6,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class Main extends Application {
 
@@ -20,8 +23,21 @@ public class Main extends Application {
     //todo - where to put a main file?
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-
+    public void start(Stage primaryStage) throws Exception {
+/*        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("MyView.fxml"));
+        try{
+        StackPane rootPane;
+        rootPane = loader.load();
+        MyViewModel guiModel = MyViewModel.getInstance();
+        guiModel.setRootPane(rootPane);
+        Scene scene = new Scene(rootPane);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        guiModel.changeWindow("Exit.fxml");
+      } catch (IOException exception) {
+        exception.printStackTrace();
+      }*/
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MyView.fxml"));
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("Maze Game");
@@ -29,19 +45,16 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         IModel model = MyModel.getInstance();
         MyViewModel viewModel = MyViewModel.getInstance();
-        MyViewController view =fxmlLoader.getController();
+        MyViewController view = fxmlLoader.getController();
         viewModel.addObserver(view);
-        primaryStage.setOnCloseRequest(e->{  //todo : clean closer (X or exit button)
+        primaryStage.setOnCloseRequest(e -> {  //todo : clean closer (X or exit button)
             view.checkExitWanted();
         });
         primaryStage.show();
     }
 
-    public void closeProgram(IModel model) {
-        model.shutDownServers();
-    }
-
     public static void main(String[] args) {
         launch(args);
+
     }
 }
