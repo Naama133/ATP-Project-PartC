@@ -35,6 +35,7 @@ public class Main extends Application {
             view.checkExitWanted();
         });
         primaryStage.show();
+
     }
 
     public void closeProgram(IModel model) {
