@@ -114,5 +114,5 @@ public class MyViewModel extends Observable implements Observer {
         return solution;
     }
 
-
+    public void exitGame(){model.shutDownServers();}
 }
