@@ -45,7 +45,7 @@ public class MyViewController implements Initializable , Observer,IView {
     public Label playerRow;
     public Label playerCol;
     private Solution ViewSolution;
-    public Stage myStage; //todo dar
+    public Stage myStage;
     //StringProperty can listen to other StringProperty and change when the other change
     //we will bind them to the StringProperty of the labels when the scene initialize (by implement Initializable)
     StringProperty updatePlayerRow = new SimpleStringProperty();
@@ -310,10 +310,10 @@ public class MyViewController implements Initializable , Observer,IView {
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL); //lock the window
 
-        ExitController exitController = fxmlLoader.getController(); //todo dar
-        Button cnl_btn = exitController.cancel_btn;  //todo dar
+        ExitController exitController = fxmlLoader.getController();
+        Button cnl_btn = exitController.cancel_btn;
 
-        cnl_btn.setOnAction(e->{  //todo : clean closer (X or exit button)
+        cnl_btn.setOnAction(e->{
             stage.close();
             myStage.show();
         });
@@ -338,7 +338,7 @@ public class MyViewController implements Initializable , Observer,IView {
 
     }
 
-    public void setStageAndScene(Stage primaryStage) { //todo dar
+    public void setStageAndScene(Stage primaryStage) {
         myStage = primaryStage;
     }
 }

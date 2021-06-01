@@ -16,8 +16,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ExitController implements Initializable {
-    public Button cancel_btn; //todo dar
-    public Button yes_Btn; //todo dar
+    public Button cancel_btn;
+    public Button yes_Btn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -30,12 +30,5 @@ public class ExitController implements Initializable {
         System.exit(0);
     }
 
-/*    public void abortExit(ActionEvent actionEvent) {
-        //todo dar
-        Stage stage = (Stage)cancel_btn.getScene().getWindow();
-        stage.close();
-        //((Node)(actionEvent.getSource())).getScene().getp;
-       //todo
-    }*/
 
 }

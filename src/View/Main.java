@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 
 import java.util.Optional;
@@ -38,9 +39,9 @@ public class Main extends Application {
         MyViewModel viewModel = MyViewModel.getInstance();
         MyViewController view =fxmlLoader.getController();
         viewModel.addObserver(view);
-        MyViewController MvController = fxmlLoader.getController(); //todo dar
-        MvController.setStageAndScene(primaryStage); //todo dar
-        primaryStage.setOnCloseRequest(e->{  //todo : clean closer (X or exit button)
+        MyViewController MvController = fxmlLoader.getController();
+        MvController.setStageAndScene(primaryStage);
+        primaryStage.setOnCloseRequest(e->{
             view.checkExitWanted();
         });
         primaryStage.show();
