@@ -1,7 +1,5 @@
 package View;
 
-import Model.IModel;
-import Model.MyModel;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
@@ -34,6 +32,7 @@ import javafx.util.Duration;
  * Controller of the fxml (MyView) - responses for the representation of a model
  * implements IView interface
  */
+
 public class MyViewController implements Initializable , Observer,IView {
 
     public Button generate_btn;
@@ -47,6 +46,7 @@ public class MyViewController implements Initializable , Observer,IView {
     public Label playerRow;
     public Label playerCol;
     private Solution ViewSolution;
+    public Stage myStage;
     //StringProperty can listen to other StringProperty and change when the other change
     //we will bind them to the StringProperty of the labels when the scene initialize (by implement Initializable)
     StringProperty updatePlayerRow = new SimpleStringProperty();
@@ -305,11 +305,19 @@ public class MyViewController implements Initializable , Observer,IView {
             alert.setContentText("FXML loading problem");
             alert.show();
         }
-        Scene scene = new Scene(root, 400, 250);
+        Scene scene = new Scene(root, 325, 150);
         scene.getStylesheets().add(getClass().getResource("Exit.css").toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL); //lock the window
+
+        ExitController exitController = fxmlLoader.getController();
+        Button cnl_btn = exitController.cancel_btn;
+
+        cnl_btn.setOnAction(e->{
+            stage.close();
+            myStage.show();
+        });
         stage.show();
     }
 
@@ -329,5 +337,9 @@ public class MyViewController implements Initializable , Observer,IView {
         //todo
         System.out.println("new");
 
+    }
+
+    public void setStageAndScene(Stage primaryStage) {
+        myStage = primaryStage;
     }
 }

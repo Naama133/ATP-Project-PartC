@@ -3,13 +3,17 @@ package View;
 import Model.*;
 import ViewModel.MyViewModel;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 
-import java.io.IOException;
+import java.util.Optional;
 
 public class Main extends Application {
 
@@ -21,23 +25,11 @@ public class Main extends Application {
     //todo - add comments to all files
     //todo - no printStackTrace - all exceptions will be shown in alert window!
     //todo - where to put a main file?
+    //todo - buttons of minimaize and - right up
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-/*        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("MyView.fxml"));
-        try{
-        StackPane rootPane;
-        rootPane = loader.load();
-        MyViewModel guiModel = MyViewModel.getInstance();
-        guiModel.setRootPane(rootPane);
-        Scene scene = new Scene(rootPane);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        guiModel.changeWindow("Exit.fxml");
-      } catch (IOException exception) {
-        exception.printStackTrace();
-      }*/
+    public void start(Stage primaryStage) throws Exception{
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MyView.fxml"));
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("Maze Game");
@@ -45,16 +37,21 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         IModel model = MyModel.getInstance();
         MyViewModel viewModel = MyViewModel.getInstance();
-        MyViewController view = fxmlLoader.getController();
+        MyViewController view =fxmlLoader.getController();
         viewModel.addObserver(view);
-        primaryStage.setOnCloseRequest(e -> {  //todo : clean closer (X or exit button)
+        MyViewController MvController = fxmlLoader.getController();
+        MvController.setStageAndScene(primaryStage);
+        primaryStage.setOnCloseRequest(e->{
             view.checkExitWanted();
         });
         primaryStage.show();
     }
 
+    public void closeProgram(IModel model) {
+        model.shutDownServers();
+    }
+
     public static void main(String[] args) {
         launch(args);
-
     }
 }

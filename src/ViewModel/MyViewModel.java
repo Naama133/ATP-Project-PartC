@@ -58,7 +58,7 @@ public class MyViewModel extends Observable implements Observer {
                 this.playerCol = model.getPlayerCol();
                 deleteSolution();
             }
-            else if (action.equals("ModelUpdatePlayerPosition") || action.equals("restartPlayerPosition")) { //todo dar
+            else if (action.equals("ModelUpdatePlayerPosition") || action.equals("restartPlayerPosition")) {
                 this.playerRow = model.getPlayerRow();
                 this.playerCol = model.getPlayerCol();
             }
@@ -102,7 +102,7 @@ public class MyViewModel extends Observable implements Observer {
 
     }
 
-    public void restartPlayer(){ //todo dar
+    public void restartPlayer(){
         model.UpdatePlayerPosition(0);
     }
 
