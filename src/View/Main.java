@@ -3,10 +3,16 @@ package View;
 import Model.*;
 import ViewModel.MyViewModel;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+
+import java.util.Optional;
 
 public class Main extends Application {
 
@@ -18,6 +24,7 @@ public class Main extends Application {
     //todo - add comments to all files
     //todo - no printStackTrace - all exceptions will be shown in alert window!
     //todo - where to put a main file?
+    //todo - buttons of minimaize and - right up
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -31,11 +38,12 @@ public class Main extends Application {
         MyViewModel viewModel = MyViewModel.getInstance();
         MyViewController view =fxmlLoader.getController();
         viewModel.addObserver(view);
+        MyViewController MvController = fxmlLoader.getController(); //todo dar
+        MvController.setStageAndScene(primaryStage); //todo dar
         primaryStage.setOnCloseRequest(e->{  //todo : clean closer (X or exit button)
             view.checkExitWanted();
         });
         primaryStage.show();
-
     }
 
     public void closeProgram(IModel model) {

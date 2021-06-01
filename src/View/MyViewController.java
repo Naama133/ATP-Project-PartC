@@ -1,7 +1,5 @@
 package View;
 
-import Model.IModel;
-import Model.MyModel;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
@@ -47,6 +45,7 @@ public class MyViewController implements Initializable , Observer,IView {
     public Label playerRow;
     public Label playerCol;
     private Solution ViewSolution;
+    public Stage myStage; //todo dar
     //StringProperty can listen to other StringProperty and change when the other change
     //we will bind them to the StringProperty of the labels when the scene initialize (by implement Initializable)
     StringProperty updatePlayerRow = new SimpleStringProperty();
@@ -305,11 +304,19 @@ public class MyViewController implements Initializable , Observer,IView {
             alert.setContentText("FXML loading problem");
             alert.show();
         }
-        Scene scene = new Scene(root, 400, 250);
+        Scene scene = new Scene(root, 325, 150);
         scene.getStylesheets().add(getClass().getResource("Exit.css").toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL); //lock the window
+
+        ExitController exitController = fxmlLoader.getController(); //todo dar
+        Button cnl_btn = exitController.cancel_btn;  //todo dar
+
+        cnl_btn.setOnAction(e->{  //todo : clean closer (X or exit button)
+            stage.close();
+            myStage.show();
+        });
         stage.show();
     }
 
@@ -329,5 +336,9 @@ public class MyViewController implements Initializable , Observer,IView {
         //todo
         System.out.println("new");
 
+    }
+
+    public void setStageAndScene(Stage primaryStage) { //todo dar
+        myStage = primaryStage;
     }
 }
