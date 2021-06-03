@@ -30,6 +30,11 @@ public class MazeDisplayer extends Canvas {
 
     private Solution solution = null;
 
+    public MazeDisplayer() {
+        widthProperty().addListener(e -> draw());
+        heightProperty().addListener(e -> draw());
+    }
+
     public void setMazeDisplay(Maze mazeDisplay) {
         this.mazeDisplay = mazeDisplay;
     }
@@ -162,8 +167,8 @@ public class MazeDisplayer extends Canvas {
             String posX = position.substring(1,index);
             String posY = position.substring(index+1, position.length()-1);
 
-            double x = Integer.parseInt(posX) * cellWidth;
-            double y = Integer.parseInt(posY) * cellHeight;
+            double x = Integer.parseInt(posX) * cellHeight;
+            double y = Integer.parseInt(posY) * cellWidth;
             if(solutionImage== null)
                 graphicsContext.fillRect(y, x, cellWidth, cellHeight);
             else

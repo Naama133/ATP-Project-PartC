@@ -33,7 +33,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MyView.fxml"));
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("Maze Game");
-        Scene scene = new Scene(root, 600, 600);
+        Scene scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
         IModel model = MyModel.getInstance();
         MyViewModel viewModel = MyViewModel.getInstance();
