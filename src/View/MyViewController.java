@@ -52,7 +52,11 @@ public class MyViewController implements Initializable , Observer,IView {
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
 
+    //todo dar - drag - 20:00 in rotem recording + talked about log4j on start
+    //todo dar - talked about window size changig (need to to add to the button + to the drag option) 26:30 ${pane.height}
+
     //todo: add music button (play & stop) & add volume scale
+
     Media gameSoundTrack = new Media(new File("./resources/music/JalebiBaby.mp3").toURI().toString());
     MediaPlayer GameMediaPlayer = new MediaPlayer(gameSoundTrack);
     Media winningSoundTrack = new Media(new File("./resources/music/WeAreTheChampions.mp3").toURI().toString());

@@ -235,6 +235,7 @@ public class MyModel extends Observable implements IModel {
     }
 
     public void shutDownServers(){
+        //todo dar - to set new servers - 25:00 in recording of rotem
         GenerateMazeServer.stop();
         SolveMazeServer.stop();
     }
