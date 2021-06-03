@@ -21,6 +21,8 @@ import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+
+import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
@@ -37,6 +39,7 @@ public class MyViewController implements Initializable , Observer,IView {
     public Button generate_btn;
     public Button solution_btn;
     public Button restart_btn;
+    public Pane pane;
     private MyViewModel viewModel = MyViewModel.getInstance();
     private Maze viewMaze;
     public TextField textField_mazeRows;
@@ -74,6 +77,8 @@ public class MyViewController implements Initializable , Observer,IView {
                 GameMediaPlayer.seek(Duration.ZERO);
             }
         });
+        mazeDisplayer.widthProperty().bind(pane.widthProperty());
+        mazeDisplayer.heightProperty().bind(pane.heightProperty());
     }
 
     public String getUpdatePlayerRow() {
@@ -213,33 +218,24 @@ public class MyViewController implements Initializable , Observer,IView {
         }}
 
     public void mouseScrolled(ScrollEvent scrollEvent) {
+        //todo: correct the zoom (no it has constarins)
         if(scrollEvent.isControlDown()) {
             double zoom = 1.05;
             double deltaY = scrollEvent.getDeltaY();
             if (deltaY < 0) {
                 zoom = 2.0 - zoom;
             }
-            double MaxHeight = mazeDisplayer.getParent().getBoundsInParent().getHeight();
-            double MaxWidth =mazeDisplayer.getParent().getBoundsInParent().getWidth();
+            double newScaleX = pane.getScaleX() * zoom;
+            double newScaleY = pane.getScaleY() * zoom;
 
-            double Dim = Math.min(MaxHeight,MaxWidth);
+/*            if(newScaleX>pane.getScaleX())
+                newScaleX = pane.getScaleX();
+            if(newScaleY>pane.getScaleY())
+                newScaleY = pane.getScaleY();*/
 
-            double newHeight = mazeDisplayer.getHeight()*zoom;
-            double newWidth = mazeDisplayer.getWidth()*zoom;
-
-            if(newHeight>Dim)
-                newHeight=Dim;
-            else if(newHeight<1)
-                newHeight=1;
-
-            if(newWidth>Dim)
-                newWidth=Dim;
-            else if(newWidth<1)
-                newWidth=1;
-
-            mazeDisplayer.setHeight(newHeight);
-            mazeDisplayer.setWidth(newWidth);
-            mazeDisplayer.drawMaze();
+            pane.setScaleX(newScaleX);
+            pane.setScaleY(newScaleY);
+            //mazeDisplayer.drawMaze();
         }
     }
 
@@ -345,4 +341,6 @@ public class MyViewController implements Initializable , Observer,IView {
     public void setStageAndScene(Stage primaryStage) {
         myStage = primaryStage;
     }
+
+
 }

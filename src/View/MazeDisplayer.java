@@ -30,6 +30,11 @@ public class MazeDisplayer extends Canvas {
 
     private Solution solution = null;
 
+    public MazeDisplayer() {
+        widthProperty().addListener(e -> draw());
+        heightProperty().addListener(e -> draw());
+    }
+
     public void setMazeDisplay(Maze mazeDisplay) {
         this.mazeDisplay = mazeDisplay;
     }
@@ -248,5 +253,6 @@ public class MazeDisplayer extends Canvas {
     public void drawMaze(){
         draw();
     }
+
 
 }
