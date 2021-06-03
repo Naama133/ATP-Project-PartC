@@ -3,6 +3,7 @@ package View;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
+import com.sun.javafx.scene.ParentHelper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -218,24 +219,24 @@ public class MyViewController implements Initializable , Observer,IView {
         }}
 
     public void mouseScrolled(ScrollEvent scrollEvent) {
-        //todo: correct the zoom (no it has constarins)
+//todo: correct the zoom (no it has constarins)
         if(scrollEvent.isControlDown()) {
             double zoom = 1.05;
             double deltaY = scrollEvent.getDeltaY();
             if (deltaY < 0) {
                 zoom = 2.0 - zoom;
             }
-            double newScaleX = pane.getScaleX() * zoom;
-            double newScaleY = pane.getScaleY() * zoom;
+            double newScaleX = mazeDisplayer.getScaleX() * zoom;
+            double newScaleY = mazeDisplayer.getScaleY() * zoom;
 
 /*            if(newScaleX>pane.getScaleX())
                 newScaleX = pane.getScaleX();
             if(newScaleY>pane.getScaleY())
                 newScaleY = pane.getScaleY();*/
 
-            pane.setScaleX(newScaleX);
-            pane.setScaleY(newScaleY);
-            //mazeDisplayer.drawMaze();
+            mazeDisplayer.setScaleX(newScaleX);
+            mazeDisplayer.setScaleY(newScaleY);
+            mazeDisplayer.drawMaze();
         }
     }
 
@@ -289,7 +290,7 @@ public class MyViewController implements Initializable , Observer,IView {
 
     }
 
-    public void exitGame(ActionEvent actionEvent) {
+    public void exitGame(ActionEvent actionEvent) {//todo: need to check about the window -the primryStage despairs
         checkExitWanted();
     }
 
@@ -341,6 +342,4 @@ public class MyViewController implements Initializable , Observer,IView {
     public void setStageAndScene(Stage primaryStage) {
         myStage = primaryStage;
     }
-
-
 }
