@@ -26,6 +26,7 @@ public class Main extends Application {
     //todo - no printStackTrace - all exceptions will be shown in alert window!
     //todo - where to put a main file?
     //todo - buttons of minimaize and - right up
+    //todo naama - less fields - not all are necessary
 
     @Override
     public void start(Stage primaryStage) throws Exception{

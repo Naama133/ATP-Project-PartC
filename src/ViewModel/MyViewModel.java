@@ -86,6 +86,7 @@ public class MyViewModel extends Observable implements Observer {
         switch (keyEvent.getCode()){
             //up, down, left, right
             //todo:  check answer on forum - add to help section the valid keys (add keys button?)
+            //todo naama - add checks for valid (do not pass keys of non firection movments)
             case CONTROL -> direction = -2;// ignore
             case NUMPAD8, UP -> direction = 8;
             case NUMPAD2, DOWN -> direction = 2;
