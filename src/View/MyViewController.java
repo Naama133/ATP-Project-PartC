@@ -82,8 +82,6 @@ public class MyViewController implements Initializable , Observer,IView {
         mazeDisplayer.heightProperty().bind(pane.heightProperty());
     }
 
-
-
     public String getUpdatePlayerRow() {
         return updatePlayerRow.get();
     }

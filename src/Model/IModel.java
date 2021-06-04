@@ -4,7 +4,6 @@ import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
 import java.util.Observer;
 
-
 public interface IModel {
     public void generateMaze(int rows, int cols);//create maze
     public void UpdatePlayerPosition(int direction); //update location char

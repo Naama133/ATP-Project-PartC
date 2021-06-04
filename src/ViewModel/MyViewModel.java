@@ -106,7 +106,6 @@ public class MyViewModel extends Observable implements Observer {
         }
         if (direction > 0)
             model.UpdatePlayerPosition(direction);
-
     }
 
     public void restartPlayer(){
