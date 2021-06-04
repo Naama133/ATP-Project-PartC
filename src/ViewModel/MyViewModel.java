@@ -4,6 +4,7 @@ import Model.IModel;
 import Model.MyModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
+import javafx.scene.control.Alert;
 import javafx.scene.input.KeyEvent;
 
 import java.util.Observable;
@@ -86,7 +87,6 @@ public class MyViewModel extends Observable implements Observer {
         switch (keyEvent.getCode()){
             //up, down, left, right
             //todo:  check answer on forum - add to help section the valid keys (add keys button?)
-            //todo naama - add checks for valid (do not pass keys of non firection movments)
             case CONTROL -> direction = -2;// ignore
             case NUMPAD8, UP -> direction = 8;
             case NUMPAD2, DOWN -> direction = 2;
@@ -97,8 +97,13 @@ public class MyViewModel extends Observable implements Observer {
             case NUMPAD9 -> direction = 9;
             case NUMPAD1 -> direction = 1;
             case NUMPAD3 -> direction = 3;
+            default -> {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Invalid Key, press only 1,2,3,4,6,7,8,9 to move");
+                alert.show();
+            }
         }
-        if (direction != -2)
+        if (direction > 0)
             model.UpdatePlayerPosition(direction);
 
     }

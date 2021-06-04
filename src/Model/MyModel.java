@@ -97,7 +97,7 @@ public class MyModel extends Observable implements IModel {
 
 
     public void generateMaze(int rows, int cols){ //create Maze
-        String action = "ModelGenerateMaze"; //todo naama - add this check to the view!
+        String action = "ModelGenerateMaze"; //todo - add this check to the view!
         if (rows < 2 || cols < 2 || rows >1000 || cols > 1000)
             action = "InvalidMazeSize";
         else{
@@ -215,10 +215,6 @@ public class MyModel extends Observable implements IModel {
                 }
                 else{ActionMessage = "BoundariesProblem";}
                 break;
-            default:
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("Invalid Key, press only 1,2,3,4,6,7,8,9 to move"); //todo naama : move to viewmodel
-                alert.show();
         }
         String currPlayerPosition = "{" + PlayerRow + "," + PlayerCol + "}";
         if(currPlayerPosition.equals(modelMaze.getGoalPosition().toString())) //todo: solve message again and again

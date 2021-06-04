@@ -56,7 +56,7 @@ public class MyViewController implements Initializable , Observer,IView {
     StringProperty updatePlayerCol = new SimpleStringProperty();
 
     //todo dar - drag - 20:00 in rotem recording + talked about log4j on start
-    //todo dar - talked about window size changig (need to to add to the button + to the drag option) 26:30 ${pane.height}
+    //todo dar - talked about window size changing (need to to add to the button + to the drag option) 26:30 ${pane.height}
 
     //todo: add music button (play & stop) & add volume scale
 
@@ -71,13 +71,13 @@ public class MyViewController implements Initializable , Observer,IView {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playerRow.textProperty().bind(updatePlayerRow);
         playerCol.textProperty().bind(updatePlayerCol);
-        GameMediaPlayer.play();
+/*        GameMediaPlayer.play(); //todo: remove the //
         GameMediaPlayer.setOnEndOfMedia(new Runnable() {
             @Override
             public void run() {
                 GameMediaPlayer.seek(Duration.ZERO);
             }
-        });
+        });*/ //todo: remove the //
         mazeDisplayer.widthProperty().bind(pane.widthProperty());
         mazeDisplayer.heightProperty().bind(pane.heightProperty());
     }
@@ -175,35 +175,16 @@ public class MyViewController implements Initializable , Observer,IView {
                     int colViewModel = viewModel.getPlayerCol();
                     setPlayerPosition(rowViewModel, colViewModel);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("You won!! wowo!");
+                    alert.setContentText("You won!! wo wo!");
                     alert.show();
-                    GameMediaPlayer.stop();
-                    WinMediaPlayer.play();
-                    WinMediaPlayer.setOnEndOfMedia(new Runnable() {
+                    //GameMediaPlayer.stop(); //todo: remove the //
+                    //WinMediaPlayer.play();
+/*                    WinMediaPlayer.setOnEndOfMedia(new Runnable() {
                         @Override
                         public void run() {
                             GameMediaPlayer.play();
                         }
-                    });
-                    /*  //Gif pop up
-                    Stage stage = new Stage();
-                    stage.setTitle("YOU WON!!!");
-                    VBox layout = new VBox();
-                    HBox H = new HBox(5);
-                    H.setAlignment(CENTER);
-                    layout.setAlignment(CENTER);
-                    javafx.scene.control.Button close = new javafx.scene.control.Button();
-                    close.setText("Close");
-                    H.getChildren().add(close);
-                    layout.spacingProperty().setValue(10);
-                    Image im = new Image("/Images/wonGif.gif");
-                    ImageView image = new ImageView(im);
-                    layout.getChildren().add(image);
-                    layout.getChildren().add(H);
-                    Scene scene = new Scene(layout, 520, 350);
-                    scene.getStylesheets().add(getClass().getResource("/View/LoadScene.css").toExternalForm());
-                    stage.setScene(scene);
-                    stage.show();*/
+                    });*/ //todo: remove the //
                 }
                 case "InvalidMazeSize" -> {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -219,12 +200,13 @@ public class MyViewController implements Initializable , Observer,IView {
         }}
 
     public void mouseScrolled(ScrollEvent scrollEvent) {
-//todo: correct the zoom (no it has constarins)
+        //todo: correct the zoom (no it has constrains)
+        //todo naama - update from email with rotem
         if(scrollEvent.isControlDown()) {
-            double zoom = 1.05;
+            double zoom = 1.02;
             double deltaY = scrollEvent.getDeltaY();
             if (deltaY < 0) {
-                zoom = 2.0 - zoom;
+                zoom = 0.98;
             }
             double newScaleX = mazeDisplayer.getScaleX() * zoom;
             double newScaleY = mazeDisplayer.getScaleY() * zoom;
@@ -243,6 +225,8 @@ public class MyViewController implements Initializable , Observer,IView {
     public void restartMaze(ActionEvent actionEvent) {
         viewModel.restartPlayer();
     }
+
+    //todo naama - code reuse - one function to load scene? or abstract class?
 
     public void aboutWindow(ActionEvent actionEvent) {
         Stage stage = new Stage();
@@ -290,7 +274,7 @@ public class MyViewController implements Initializable , Observer,IView {
 
     }
 
-    public void exitGame(ActionEvent actionEvent) {//todo: need to check about the window -the primryStage despairs
+    public void exitGame(ActionEvent actionEvent) {//todo: need to check about the window -the primary Stage despairs
         checkExitWanted();
     }
 
