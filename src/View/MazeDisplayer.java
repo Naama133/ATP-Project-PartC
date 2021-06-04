@@ -135,6 +135,7 @@ public class MazeDisplayer extends Canvas {
             graphicsContext.clearRect(0, 0, canvasWidth, canvasHeight); //clearRect is the attribute that draw over the canvas
 
             drawMazeWalls(graphicsContext, rows, cols, cellHeight, cellWidth);
+
             if(drawSolution)
                 if(solution==null) { //todo: check if needed (need to catch this no-solution exception before)
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -145,6 +146,7 @@ public class MazeDisplayer extends Canvas {
                     drawSolution(graphicsContext, cellHeight, cellWidth);
             drawMazeStartAndGoal(graphicsContext, cellHeight, cellWidth);
             drawMazePlayer(graphicsContext, cellHeight, cellWidth);
+
 
         }
     }
