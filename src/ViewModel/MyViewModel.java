@@ -102,6 +102,7 @@ public class MyViewModel extends Observable implements Observer {
                 alert.setContentText("Invalid Key, press only 1,2,3,4,6,7,8,9 to move");
                 alert.show();
             }
+
         }
         if (direction > 0)
             model.UpdatePlayerPosition(direction);

@@ -223,6 +223,7 @@ public class MyModel extends Observable implements IModel {
         notifyObservers(ActionMessage);
     }
 
+
     //todo : checkBox to choose the theme of the game (and music?)
 
     @Override

@@ -28,6 +28,8 @@ public class Main extends Application {
     //todo - buttons of minimaize and - right up
     //todo - less fields - not all are necessary
 
+
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 

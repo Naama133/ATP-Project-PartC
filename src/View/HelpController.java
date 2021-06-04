@@ -40,6 +40,7 @@ public class HelpController implements Initializable {
                 "Dar Abu & Naama Baruch\n\n";
 
 
+
         helpText.setText(help);
     }
 

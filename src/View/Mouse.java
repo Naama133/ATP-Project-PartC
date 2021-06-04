@@ -17,6 +17,7 @@ private
 
         int dy = (int)event.getY() - y;
 
+
         if (myRect.getBounds2D().contains(x, y)) {
 
             myRect.x += dx;
