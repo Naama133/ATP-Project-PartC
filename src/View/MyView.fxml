@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<?import View.MazeDisplayer?>
+<?import View.*?>
 <BorderPane onMouseClicked="#mouseClicked" onScroll="#mouseScrolled" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
     <bottom>
         <HBox prefHeight="3.0" prefWidth="434.0" BorderPane.alignment="CENTER" />

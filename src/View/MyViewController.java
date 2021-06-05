@@ -271,8 +271,25 @@ public class MyViewController implements Initializable , Observer,IView {
     public void propertiesWindow(ActionEvent actionEvent) {
         //todo
         System.out.println("prop");
-
+        Stage stage = new Stage();
+        stage.setTitle("Properties");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Properties.fxml"));
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("FXML loading problem");
+            alert.show();
+        }
+        Scene scene = new Scene(root, 750, 550);
+        scene.getStylesheets().add(getClass().getResource("Properties.css").toExternalForm());
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL); //lock the window
+        stage.show();
     }
+
 
     public void exitGame(ActionEvent actionEvent) {//todo: need to check about the window -the primary Stage despairs
         checkExitWanted();
