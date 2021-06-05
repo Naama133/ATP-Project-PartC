@@ -287,9 +287,7 @@ public class MyViewController implements Initializable , Observer,IView {
 
     public void checkExitWanted(){
         helperFunctionOpenStage("Exit", 325, 150, true, false);
-
     }
-
     public void loadGame(ActionEvent actionEvent) {
         //todo
         System.out.println("load");
