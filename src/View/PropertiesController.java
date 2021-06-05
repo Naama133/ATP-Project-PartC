@@ -64,11 +64,12 @@ public class PropertiesController implements Initializable {
         }
         String genStr = catString(Configurations.getGeneratingAlgorithm().getClass().toString());
         String serStr = catString(Configurations.getSearchingAlgorithm().getClass().toString());
-        if(newGenerator != genStr){
+        if(!newGenerator.equals(genStr)){
+
             //todo: generate new maze, and restart the game, include - delete the current solution if exist
             Configurations.setGenerator(newGenerator);
         }
-        else if(newAlgorithm != serStr){
+        else if(!newAlgorithm.equals(serStr) ){
             //todo: delete current solution if exist
             Configurations.setSearchingAlgorithm(newAlgorithm);
         }

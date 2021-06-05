@@ -255,8 +255,14 @@ public class MyViewController implements Initializable , Observer,IView {
             Button ok_btn = propertiesController.OK_btn;
 
             ok_btn.setOnAction(e->{
+                if(mazeDisplayer.getDrawSolution())
+                    mazeDisplayer.ChangeDrawSolution();
+
+                mazeDisplayer.deleteSolution();
+                viewModel.deleteSolution();
                 propertiesController.changeConfiguration(e);
                 stage.close();
+                mazeDisplayer.drawMaze();
             });
         }
         stage.show();
