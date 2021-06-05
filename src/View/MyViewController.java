@@ -278,7 +278,7 @@ public class MyViewController implements Initializable , Observer,IView {
     }
 
     public void propertiesWindow(ActionEvent actionEvent) {
-        helperFunctionOpenStage("Properties", 450, 350, false, true);
+        helperFunctionOpenStage("Properties", 400, 280, false, true);
     }
 
     public void exitGame(ActionEvent actionEvent) {//todo: need to check about the window -the primary Stage despairs
