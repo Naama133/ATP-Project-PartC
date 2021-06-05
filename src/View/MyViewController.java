@@ -226,7 +226,7 @@ public class MyViewController implements Initializable , Observer,IView {
         viewModel.restartPlayer();
     }
 
-    public void helperFunctionOpenStage(String title, int sceneSizeW, int sceneSizeH, boolean ExitWindow){
+    public void helperFunctionOpenStage(String title, int sceneSizeW, int sceneSizeH, boolean ExitWindow, boolean PropertiesWindow){
         Stage stage = new Stage();
         stage.setTitle(title);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(title + ".fxml"));
@@ -254,22 +254,29 @@ public class MyViewController implements Initializable , Observer,IView {
                 myStage.show();
             });
         }
+        if(PropertiesWindow){
+            PropertiesController propertiesController = fxmlLoader.getController();
+            Button ok_btn = propertiesController.OK_btn;
+
+            ok_btn.setOnAction(e->{
+                propertiesController.changeConfiguration(e);
+                stage.close();
+            });
+        }
         stage.show();
     }
 
     public void aboutWindow(ActionEvent actionEvent) {
-        helperFunctionOpenStage("About", 450,420, false);
+        helperFunctionOpenStage("About", 450,420, false, false);
     }
 
     public void helpWindow(ActionEvent actionEvent) {
-        helperFunctionOpenStage("Help", 750, 550, false);
+
+        helperFunctionOpenStage("Help", 750, 550, false, false);
     }
 
     public void propertiesWindow(ActionEvent actionEvent) {
-        //todo
-        System.out.println("prop");
-        //helperFunctionOpenStage("Properties", 750, 550, false);
-
+        helperFunctionOpenStage("Properties", 450, 350, false, true);
     }
 
     public void exitGame(ActionEvent actionEvent) {//todo: need to check about the window -the primary Stage despairs
@@ -277,14 +284,13 @@ public class MyViewController implements Initializable , Observer,IView {
     }
 
     public void checkExitWanted(){
-        helperFunctionOpenStage("Exit", 325, 150, true);
+        helperFunctionOpenStage("Exit", 325, 150, true, false);
 
     }
 
     public void loadGame(ActionEvent actionEvent) {
         //todo
         System.out.println("load");
-
     }
 
     public void saveGame(ActionEvent actionEvent) {
