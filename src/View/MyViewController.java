@@ -1,9 +1,9 @@
 package View;
 
+import Model.MyModel;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
-import com.sun.javafx.scene.ParentHelper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -28,7 +28,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+
 
 /**
  * Controller of the fxml (MyView) - responses for the representation of a model
@@ -41,15 +41,15 @@ public class MyViewController implements Initializable , Observer,IView {
     public Button solution_btn;
     public Button restart_btn;
     public Pane pane;
+    public Label playerRow;
+    public Label playerCol;
+    public Stage myStage;
+
     private MyViewModel viewModel = MyViewModel.getInstance();
-    private Maze viewMaze;
     public TextField textField_mazeRows;
     public TextField textField_mazeColumns;
     public MazeDisplayer mazeDisplayer;
-    public Label playerRow;
-    public Label playerCol;
-    private Solution ViewSolution;
-    public Stage myStage;
+
     //StringProperty can listen to other StringProperty and change when the other change
     //we will bind them to the StringProperty of the labels when the scene initialize (by implement Initializable)
     StringProperty updatePlayerRow = new SimpleStringProperty();
@@ -98,12 +98,10 @@ public class MyViewController implements Initializable , Observer,IView {
         this.updatePlayerCol.set("" + col);
     }
 
-    //handle maze creation
-    public void generateMaze(ActionEvent actionEvent) {
+    public void createNewMaze(){
         if(mazeDisplayer.getDrawSolution())
             mazeDisplayer.ChangeDrawSolution();
         mazeDisplayer.deleteSolution();
-        ViewSolution=null;
         try {
             int rows = Integer.parseInt(textField_mazeRows.getText());
             int cols = Integer.parseInt(textField_mazeColumns.getText());
@@ -116,6 +114,11 @@ public class MyViewController implements Initializable , Observer,IView {
         }
         solution_btn.setDisable(false);
         restart_btn.setDisable(false);
+    }
+
+    //handle maze creation
+    public void generateMaze(ActionEvent actionEvent) {
+      createNewMaze();
     }
 
     public void setPlayerPosition(int row, int col) {
@@ -150,8 +153,7 @@ public class MyViewController implements Initializable , Observer,IView {
         if(o instanceof MyViewModel) {
             switch (action) {//maze creation
                 case "ModelGenerateMaze" -> {
-                    viewMaze = viewModel.getMaze(); //new maze have been created
-                    mazeDisplayer.setMazeDisplay(viewMaze);
+                    mazeDisplayer.setMazeDisplay(viewModel.getMaze());
                     setPlayerPosition(viewModel.getPlayerRow(), viewModel.getPlayerCol());
                 }
                 case "ModelUpdatePlayerPosition" -> {
@@ -159,8 +161,7 @@ public class MyViewController implements Initializable , Observer,IView {
                     int colViewModel = viewModel.getPlayerCol();
                     setPlayerPosition(rowViewModel, colViewModel);}
                 case "ModelSolvedMaze" -> {
-                    ViewSolution = viewModel.getSolution();
-                    mazeDisplayer.DrawWhenSolve(ViewSolution);
+                    mazeDisplayer.DrawWhenSolve(viewModel.getSolution());
                 }
                 case "BoundariesProblem" -> {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -210,11 +211,6 @@ public class MyViewController implements Initializable , Observer,IView {
             }
             double newScaleX = mazeDisplayer.getScaleX() * zoom;
             double newScaleY = mazeDisplayer.getScaleY() * zoom;
-
-/*            if(newScaleX>pane.getScaleX())
-                newScaleX = pane.getScaleX();
-            if(newScaleY>pane.getScaleY())
-                newScaleY = pane.getScaleY();*/
 
             mazeDisplayer.setScaleX(newScaleX);
             mazeDisplayer.setScaleY(newScaleY);

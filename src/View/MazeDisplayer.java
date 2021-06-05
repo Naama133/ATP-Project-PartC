@@ -23,11 +23,11 @@ public class MazeDisplayer extends Canvas {
     StringProperty imageFileNameStartPosition = new SimpleStringProperty();
     StringProperty imageFileNameGoalPosition = new SimpleStringProperty();
     StringProperty imageFileNameSolution = new SimpleStringProperty();
+
     private Maze mazeDisplay;
     private int PlayerRow = 0;
     private int PlayerCol = 0;
     private Boolean drawSolution = false;
-
     private Solution solution = null;
 
     public MazeDisplayer() {

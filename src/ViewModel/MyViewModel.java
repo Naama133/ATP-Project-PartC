@@ -11,19 +11,13 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class MyViewModel extends Observable implements Observer {
-    private static MyViewModel ViewModelInstance;
+    private static MyViewModel ViewModelInstance; //singleton
     private IModel model;
-    private Maze maze;
-    private int playerRow;
-    private int playerCol;
-    private Solution solution;
 
     //viewModel is observer of model
     private MyViewModel() {
         model = MyModel.getInstance();
         model.assignObserver(this);
-        maze = null;
-        solution = null;
     }
 
     public static MyViewModel getInstance() {
@@ -34,20 +28,19 @@ public class MyViewModel extends Observable implements Observer {
     }
 
     public void deleteSolution() {
-        solution = null;
         model.deleteSolution();
     }
 
     public int getPlayerRow() {
-        return playerRow;
+        return model.getPlayerRow();
     }
 
     public int getPlayerCol() {
-        return playerCol;
+        return model.getPlayerCol();
     }
 
     public Maze getMaze() {
-        return maze;
+        return model.getMaze();
     }
 
     @Override
@@ -55,25 +48,10 @@ public class MyViewModel extends Observable implements Observer {
         String action = arg.toString();
         if (o instanceof IModel) {
             if (action.equals("ModelGenerateMaze")) {
-                this.maze = model.getMaze();
-                this.playerRow = model.getPlayerRow();
-                this.playerCol = model.getPlayerCol();
                 deleteSolution();
             }
-            else if (action.equals("ModelUpdatePlayerPosition") || action.equals("restartPlayerPosition")) {
-                this.playerRow = model.getPlayerRow();
-                this.playerCol = model.getPlayerCol();
-            }
-            else if (action.equals("ModelSolvedMaze")) {
-                solution = model.getSolution();
-            }
-            else if(action.equals("BoundariesProblem") || action.equals("Wall") || action.equals("InvalidMazeSize")){
-                //do nothing, pass the same message to the View
-            }
-            else if (action.equals("UserSolvedTheMaze")) {
-                this.playerRow = model.getPlayerRow();
-                this.playerCol = model.getPlayerCol();
-            }
+            //In the others cases we'll do nothing, pass the same message to the View.
+
         }
         setChanged(); // let know the view we done
         notifyObservers(action);
@@ -118,7 +96,7 @@ public class MyViewModel extends Observable implements Observer {
     }
 
     public Solution getSolution (){
-        return solution;
+        return model.getSolution();
     }
 
     public void exitGame(){model.shutDownServers();}

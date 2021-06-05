@@ -24,6 +24,9 @@ public class PropertiesController implements Initializable {
     SpinnerValueFactory<Integer> spinnerValueFactory;
     private MyViewModel viewModel = MyViewModel.getInstance();
 
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         generatorChoiceBox.getItems().addAll("EmptyMazeGenerator", "SimpleMazeGenerator", "MyMazeGenerator");
@@ -59,15 +62,13 @@ public class PropertiesController implements Initializable {
             Configurations.setThreadPoolSize(String.valueOf(newThreadsNumber));
             viewModel.initGameServers();
         }
-
         String genStr = catString(Configurations.getGeneratingAlgorithm().getClass().toString());
+        String serStr = catString(Configurations.getSearchingAlgorithm().getClass().toString());
         if(newGenerator != genStr){
             //todo: generate new maze, and restart the game, include - delete the current solution if exist
             Configurations.setGenerator(newGenerator);
         }
-
-        String serStr = catString(Configurations.getSearchingAlgorithm().getClass().toString());
-        if(newAlgorithm != serStr){
+        else if(newAlgorithm != serStr){
             //todo: delete current solution if exist
             Configurations.setSearchingAlgorithm(newAlgorithm);
         }
