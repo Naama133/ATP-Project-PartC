@@ -35,10 +35,8 @@ public class MyModel extends Observable implements IModel {
         SolveMazeServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
         GenerateMazeServer.start();
         SolveMazeServer.start();
-        Configurations.setThreadPoolSize("3"); //todo: by user chose
-        Configurations.setGenerator("MyMazeGenerator");
-        Configurations.setSearchingAlgorithm("BestFirstSearch");
     }
+
 
     public void deleteSolution() {
         modelMazeSolution = null;
@@ -231,9 +229,17 @@ public class MyModel extends Observable implements IModel {
     }
 
     public void shutDownServers(){
-        //todo dar - to set new servers - 25:00 in recording of rotem
         GenerateMazeServer.stop();
         SolveMazeServer.stop();
+        GenerateMazeServer.JoinTermination();
+        SolveMazeServer.JoinTermination();
+    }
+
+    public void initServers(){
+        GenerateMazeServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
+        SolveMazeServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
+        GenerateMazeServer.start();
+        SolveMazeServer.start();
     }
 
 }

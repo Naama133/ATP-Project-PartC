@@ -27,6 +27,7 @@ public class Main extends Application {
     //todo - where to put a main file?
     //todo - buttons of minimaize and - right up
     //todo - less fields - not all are necessary
+    //todo - jar file has a problem
 
     @Override
     public void start(Stage primaryStage) throws Exception{

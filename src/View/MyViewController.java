@@ -226,12 +226,10 @@ public class MyViewController implements Initializable , Observer,IView {
         viewModel.restartPlayer();
     }
 
-    //todo naama - code reuse - one function to load scene? or abstract class?
-
-    public void aboutWindow(ActionEvent actionEvent) {
+    public void helperFunctionOpenStage(String title, int sceneSizeW, int sceneSizeH, boolean ExitWindow, boolean PropertiesWindow){
         Stage stage = new Stage();
-        stage.setTitle("About");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("About.fxml"));
+        stage.setTitle(title);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(title + ".fxml"));
         Parent root = null;
         try {
             root = fxmlLoader.load();
@@ -240,92 +238,59 @@ public class MyViewController implements Initializable , Observer,IView {
             alert.setContentText("FXML loading problem");
             alert.show();
         }
-        Scene scene = new Scene(root, 450, 420);
-        scene.getStylesheets().add(getClass().getResource("About.css").toExternalForm());
+        Scene scene = new Scene(root, sceneSizeW, sceneSizeH);
+        scene.getStylesheets().add(getClass().getResource(title+".css").toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL); //lock the window
+        if(ExitWindow){
+            stage.setTitle("");
+
+            ExitController exitController = fxmlLoader.getController();
+            Button cnl_btn = exitController.cancel_btn;
+
+            cnl_btn.setOnAction(e->{
+                stage.close();
+                myStage.show();
+            });
+        }
+        if(PropertiesWindow){
+            PropertiesController propertiesController = fxmlLoader.getController();
+            Button ok_btn = propertiesController.OK_btn;
+
+            ok_btn.setOnAction(e->{
+                propertiesController.changeConfiguration(e);
+                stage.close();
+            });
+        }
         stage.show();
+    }
+
+    public void aboutWindow(ActionEvent actionEvent) {
+        helperFunctionOpenStage("About", 450,420, false, false);
     }
 
     public void helpWindow(ActionEvent actionEvent) {
-        Stage stage = new Stage();
-        stage.setTitle("Help");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
-        Parent root = null;
-        try {
-            root = fxmlLoader.load();
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("FXML loading problem");
-            alert.show();
-        }
-        Scene scene = new Scene(root, 750, 550);
-        scene.getStylesheets().add(getClass().getResource("Help.css").toExternalForm());
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.initModality(Modality.APPLICATION_MODAL); //lock the window
-        stage.show();
+
+        helperFunctionOpenStage("Help", 750, 550, false, false);
     }
 
     public void propertiesWindow(ActionEvent actionEvent) {
-        //todo
-        System.out.println("prop");
-        Stage stage = new Stage();
-        stage.setTitle("Properties");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Properties.fxml"));
-        Parent root = null;
-        try {
-            root = fxmlLoader.load();
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("FXML loading problem");
-            alert.show();
-        }
-        Scene scene = new Scene(root, 750, 550);
-        scene.getStylesheets().add(getClass().getResource("Properties.css").toExternalForm());
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.initModality(Modality.APPLICATION_MODAL); //lock the window
-        stage.show();
+        helperFunctionOpenStage("Properties", 450, 350, false, true);
     }
-
 
     public void exitGame(ActionEvent actionEvent) {//todo: need to check about the window -the primary Stage despairs
         checkExitWanted();
     }
 
     public void checkExitWanted(){
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Exit.fxml"));
-        Parent root = null;
-        try {
-            root = fxmlLoader.load();
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("FXML loading problem");
-            alert.show();
-        }
-        Scene scene = new Scene(root, 325, 150);
-        scene.getStylesheets().add(getClass().getResource("Exit.css").toExternalForm());
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.initModality(Modality.APPLICATION_MODAL); //lock the window
+        helperFunctionOpenStage("Exit", 325, 150, true, false);
 
-        ExitController exitController = fxmlLoader.getController();
-        Button cnl_btn = exitController.cancel_btn;
-
-        cnl_btn.setOnAction(e->{
-            stage.close();
-            myStage.show();
-        });
-        stage.show();
     }
 
     public void loadGame(ActionEvent actionEvent) {
         //todo
         System.out.println("load");
-
     }
 
     public void saveGame(ActionEvent actionEvent) {

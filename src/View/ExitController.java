@@ -4,17 +4,14 @@ import ViewModel.MyViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ExitController implements Initializable {
+public class ExitController {
     public Button cancel_btn;
     public Button yes_Btn;
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        //todo
-    }
 
     public void continueExit(ActionEvent actionEvent) {
         MyViewModel viewModel = MyViewModel.getInstance();

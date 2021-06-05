@@ -15,4 +15,6 @@ public interface IModel {
     public Solution getSolution();
     public void deleteSolution();
     public void shutDownServers();
-}
+    public void initServers();
+
+    }

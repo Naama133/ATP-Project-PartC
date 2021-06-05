@@ -35,6 +35,7 @@ public class MyViewModel extends Observable implements Observer {
 
     public void deleteSolution() {
         solution = null;
+        model.deleteSolution();
     }
 
     public int getPlayerRow() {
@@ -121,4 +122,7 @@ public class MyViewModel extends Observable implements Observer {
     }
 
     public void exitGame(){model.shutDownServers();}
+
+    public void initGameServers(){model.initServers();}
+
 }
