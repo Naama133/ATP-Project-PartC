@@ -235,11 +235,11 @@ public class MyViewController implements Initializable , Observer,IView {
             alert.show();
         }
         Scene scene = new Scene(root, sceneSizeW, sceneSizeH);
-        scene.getStylesheets().add(getClass().getResource(title+".css").toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL); //lock the window
         if(ExitWindow){
+            scene.getStylesheets().add(getClass().getResource("Exit.css").toExternalForm());
             stage.setTitle("");
 
             ExitController exitController = fxmlLoader.getController();
