@@ -17,6 +17,8 @@ public class ExitController {
         MyViewModel viewModel = MyViewModel.getInstance();
         viewModel.exitGame();
         System.exit(0);
+
+        actionEvent.consume();
     }
 
 

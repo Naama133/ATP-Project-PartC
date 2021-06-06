@@ -70,7 +70,8 @@ public class PropertiesController implements Initializable {
         else if(!newAlgorithm.equals(serStr) ){
             Configurations.setSearchingAlgorithm(newAlgorithm);
         }
-
+        actionEvent.consume();
     }
+
 
 }
