@@ -21,9 +21,6 @@ public class PropertiesController implements Initializable {
     SpinnerValueFactory<Integer> spinnerValueFactory;
     private MyViewModel viewModel = MyViewModel.getInstance();
 
-
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         generatorChoiceBox.getItems().addAll("EmptyMazeGenerator", "SimpleMazeGenerator", "MyMazeGenerator");
