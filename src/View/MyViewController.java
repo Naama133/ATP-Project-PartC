@@ -1,5 +1,6 @@
 package View;
 
+import IO.MyCompressorOutputStream;
 import Model.MyModel;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
@@ -16,10 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
@@ -105,18 +103,23 @@ public class MyViewController implements Initializable , Observer,IView {
 
     //handle maze creation
     public void generateMaze(ActionEvent actionEvent) {
+        /*if(mazeDisplayer.getDrawSolution())
+            mazeDisplayer.ChangeDrawSolution();
+        mazeDisplayer.deleteSolution();*/
         try {
             int rows = Integer.parseInt(textField_mazeRows.getText());
             int cols = Integer.parseInt(textField_mazeColumns.getText());
             viewModel.generateMaze(rows, cols);
         }
         catch (Exception e){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("Invalid input - Type only numbers, no spaces and signs.");
-            alert.show();
-        }
-    }
+            WarningMessage("Invalid input - Type only numbers, no spaces and signs.");
 
+        }
+        /*solution_btn.setDisable(false);
+        restart_btn.setDisable(false);*/
+        actionEvent.consume();
+
+    }
     public void setPlayerPosition(int row, int col) {
         mazeDisplayer.setPlayerPosition(row,col);
         setUpdatePlayerRow(row);
@@ -129,6 +132,7 @@ public class MyViewController implements Initializable , Observer,IView {
             viewModel.solveMaze();
         else
             mazeDisplayer.drawMaze();
+        actionEvent.consume();
     }
 
     //event handler - listen to key press event
@@ -141,6 +145,7 @@ public class MyViewController implements Initializable , Observer,IView {
     //focus on mouse click position
     public void mouseClicked(MouseEvent mouseEvent) {
         mazeDisplayer.requestFocus();
+        mouseEvent.consume();
     }
 
     @Override
@@ -148,7 +153,7 @@ public class MyViewController implements Initializable , Observer,IView {
         String action = arg.toString();
         if(o instanceof MyViewModel) {
             switch (action) {//maze creation
-                case "ModelGenerateMaze","ModelLoadedMaze" -> {
+                case "ModelGenerateMaze","ModelLoadedMaze" -> { //todo naama
                     if(mazeDisplayer.getDrawSolution())
                         mazeDisplayer.ChangeDrawSolution();
                     mazeDisplayer.deleteSolution();
@@ -217,10 +222,13 @@ public class MyViewController implements Initializable , Observer,IView {
             mazeDisplayer.setScaleY(newScaleY);
             mazeDisplayer.drawMaze();
         }
+        scrollEvent.consume();
     }
 
     public void restartMaze(ActionEvent actionEvent) {
         viewModel.restartPlayer();
+        actionEvent.consume();
+
     }
 
     public void helperFunctionOpenStage(String title, int sceneSizeW, int sceneSizeH, boolean ExitWindow, boolean PropertiesWindow){
@@ -268,19 +276,26 @@ public class MyViewController implements Initializable , Observer,IView {
 
     public void aboutWindow(ActionEvent actionEvent) {
         helperFunctionOpenStage("About", 450,420, false, false);
+        actionEvent.consume();
+
     }
 
     public void helpWindow(ActionEvent actionEvent) {
 
         helperFunctionOpenStage("Help", 750, 570, false, false);
+        actionEvent.consume();
+
     }
 
     public void propertiesWindow(ActionEvent actionEvent) {
         helperFunctionOpenStage("Properties", 400, 280, false, true);
+        actionEvent.consume();
+
     }
 
     public void exitGame(ActionEvent actionEvent) {//todo: need to check about the window -the primary Stage despairs
         checkExitWanted();
+        actionEvent.consume();
     }
 
     public void checkExitWanted(){
@@ -302,22 +317,26 @@ public class MyViewController implements Initializable , Observer,IView {
         actionEvent.consume();
     }
 
-    private void InformationMessage(String message){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText(message);
-        alert.show();
-    }
+    public void saveGame(ActionEvent actionEvent) {
+        if (viewModel.getMaze() == null) {
+            ErrorMessage("You must generate a maze before saving!");
 
-    private void WarningMessage(String message){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setContentText(message);
-        alert.show();
-    }
+        }
+        else{
+            FileChooser fileChooser = createFileChooser("Save Maze As");
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter( "Maze Files","*.maze"));
+            File file = fileChooser.showSaveDialog(myStage);
+            ObjectOutputStream saveNewGame = null;
+            try {
+                saveNewGame = new ObjectOutputStream(new FileOutputStream(file));
+                saveNewGame.writeObject(viewModel.getMaze().toByteArray());
+                InformationMessage("your Game has been saved!");
 
-    private void ErrorMessage(String message){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setContentText(message);
-        alert.show();
+            } catch (Exception expectedException) {
+                ErrorMessage("you can't save your Game, try again!");
+            }
+        }
+        actionEvent.consume();
     }
 
     private FileChooser createFileChooser(String title){
@@ -327,13 +346,23 @@ public class MyViewController implements Initializable , Observer,IView {
         return fileChooser;
     }
 
-    public void saveGame(ActionEvent actionEvent) {
-        //todo
-        System.out.println("save");
-    }
-
 
     public void setStageAndScene(Stage primaryStage) {
         myStage = primaryStage;
     }
+
+
+    /*----------    Alert    ----------*/
+    private void InformationMessage(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(message);
+        alert.show(); }
+    private void WarningMessage(String message){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setContentText(message);
+        alert.show(); }
+    private void ErrorMessage(String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText(message);
+        alert.show(); }
 }

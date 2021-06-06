@@ -16,6 +16,7 @@ import java.net.UnknownHostException;
 import java.util.Observable;
 import java.util.Observer;
 import Server.Configurations;
+import javafx.stage.FileChooser;
 
 public class MyModel extends Observable implements IModel {
     private static MyModel ModelInstance;
@@ -251,6 +252,17 @@ public class MyModel extends Observable implements IModel {
         SolveMazeServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
         GenerateMazeServer.start();
         SolveMazeServer.start();
+    }
+
+    public void setLoadedMaze(Maze loadedMaze){
+        String action = "ModelLoadedMaze";
+        modelMaze = loadedMaze;
+        PlayerRow =modelMaze.getStartPosition().getRowIndex();
+        PlayerCol = modelMaze.getStartPosition().getColumnIndex();
+
+        deleteSolution();
+        setChanged();
+        notifyObservers(action);
     }
 
 }

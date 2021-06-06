@@ -17,4 +17,5 @@ public interface IModel {
     public void shutDownServers();
     public void initServers();
     public void setLoadedMaze(Maze loadedMaze);
+
 }

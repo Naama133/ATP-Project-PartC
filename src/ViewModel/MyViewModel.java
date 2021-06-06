@@ -27,6 +27,7 @@ public class MyViewModel extends Observable implements Observer {
         return ViewModelInstance;
     }
 
+
     public int getPlayerRow() {
         return model.getPlayerRow();
     }
@@ -42,6 +43,7 @@ public class MyViewModel extends Observable implements Observer {
     @Override
     public void update(Observable o, Object arg) { //create maze or move character
         String action = arg.toString();
+        //In all cases we'll pass the same message we received from the Model to the View.
         setChanged(); // let know the view we done
         notifyObservers(action);
     }
@@ -95,4 +97,5 @@ public class MyViewModel extends Observable implements Observer {
     public void setLoadedMaze(Maze loadedMaze) {
         model.setLoadedMaze(loadedMaze);
     }
+
 }
