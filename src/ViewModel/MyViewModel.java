@@ -27,10 +27,6 @@ public class MyViewModel extends Observable implements Observer {
         return ViewModelInstance;
     }
 
-    public void deleteSolution() {
-        model.deleteSolution();
-    }
-
     public int getPlayerRow() {
         return model.getPlayerRow();
     }
@@ -46,13 +42,6 @@ public class MyViewModel extends Observable implements Observer {
     @Override
     public void update(Observable o, Object arg) { //create maze or move character
         String action = arg.toString();
-        if (o instanceof IModel) {
-            if (action.equals("ModelGenerateMaze")) {
-                deleteSolution();
-            }
-            //In the others cases we'll do nothing, pass the same message to the View.
-
-        }
         setChanged(); // let know the view we done
         notifyObservers(action);
     }
@@ -103,4 +92,7 @@ public class MyViewModel extends Observable implements Observer {
 
     public void initGameServers(){model.initServers();}
 
+    public void setLoadedMaze(Maze loadedMaze) {
+        model.setLoadedMaze(loadedMaze);
+    }
 }

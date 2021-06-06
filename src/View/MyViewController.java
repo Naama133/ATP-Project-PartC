@@ -17,7 +17,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
@@ -26,8 +28,11 @@ import java.util.ResourceBundle;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import javax.swing.filechooser.FileSystemView;
 
 
 /**
@@ -100,9 +105,6 @@ public class MyViewController implements Initializable , Observer,IView {
 
     //handle maze creation
     public void generateMaze(ActionEvent actionEvent) {
-        if(mazeDisplayer.getDrawSolution())
-            mazeDisplayer.ChangeDrawSolution();
-        mazeDisplayer.deleteSolution();
         try {
             int rows = Integer.parseInt(textField_mazeRows.getText());
             int cols = Integer.parseInt(textField_mazeColumns.getText());
@@ -113,9 +115,8 @@ public class MyViewController implements Initializable , Observer,IView {
             alert.setContentText("Invalid input - Type only numbers, no spaces and signs.");
             alert.show();
         }
-        solution_btn.setDisable(false);
-        restart_btn.setDisable(false);
     }
+
     public void setPlayerPosition(int row, int col) {
         mazeDisplayer.setPlayerPosition(row,col);
         setUpdatePlayerRow(row);
@@ -147,9 +148,14 @@ public class MyViewController implements Initializable , Observer,IView {
         String action = arg.toString();
         if(o instanceof MyViewModel) {
             switch (action) {//maze creation
-                case "ModelGenerateMaze" -> {
+                case "ModelGenerateMaze","ModelLoadedMaze" -> {
+                    if(mazeDisplayer.getDrawSolution())
+                        mazeDisplayer.ChangeDrawSolution();
+                    mazeDisplayer.deleteSolution();
                     mazeDisplayer.setMazeDisplay(viewModel.getMaze());
                     setPlayerPosition(viewModel.getPlayerRow(), viewModel.getPlayerCol());
+                    solution_btn.setDisable(false);
+                    restart_btn.setDisable(false);
                 }
                 case "ModelUpdatePlayerPosition" -> {
                     int rowViewModel = viewModel.getPlayerRow();
@@ -278,12 +284,47 @@ public class MyViewController implements Initializable , Observer,IView {
     }
 
     public void checkExitWanted(){
-
         helperFunctionOpenStage("Exit", 325, 150, true, false);
     }
     public void loadGame(ActionEvent actionEvent) {
-        //todo
-        System.out.println("load");
+        FileChooser fileChooser = createFileChooser("Open Maze Game");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Maze Files", "*.maze"));
+        File chosenFile = fileChooser.showOpenDialog(myStage);
+        if (chosenFile == null){
+            return;}
+        try {
+            ObjectInputStream loadInputStream = new ObjectInputStream(new FileInputStream(chosenFile));
+            byte[] loadedMazeByteArray = (byte[]) loadInputStream.readObject();
+            Maze loadedMaze = new Maze(loadedMazeByteArray);
+            viewModel.setLoadedMaze(loadedMaze);}
+        catch (Exception e) {
+            ErrorMessage("The maze could not be loaded, please select a different file");}
+        actionEvent.consume();
+    }
+
+    private void InformationMessage(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(message);
+        alert.show();
+    }
+
+    private void WarningMessage(String message){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setContentText(message);
+        alert.show();
+    }
+
+    private void ErrorMessage(String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText(message);
+        alert.show();
+    }
+
+    private FileChooser createFileChooser(String title){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+        fileChooser.setInitialDirectory(new File(FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath()));
+        return fileChooser;
     }
 
     public void saveGame(ActionEvent actionEvent) {

@@ -136,6 +136,17 @@ public class MyModel extends Observable implements IModel {
         notifyObservers(action);
     }
 
+    public void setLoadedMaze(Maze loadedMaze){
+        String action = "ModelLoadedMaze";
+
+        modelMaze = loadedMaze;
+        PlayerRow =modelMaze.getStartPosition().getRowIndex();
+        PlayerCol = modelMaze.getStartPosition().getColumnIndex();
+
+        deleteSolution();
+        setChanged();
+        notifyObservers(action);
+    }
 
     public void UpdatePlayerPosition(int direction){ //Update Location of the character is the Maze
         String ActionMessage = "ModelUpdatePlayerPosition";
