@@ -311,7 +311,10 @@ public class MyViewController implements Initializable , Observer,IView {
             ObjectInputStream loadInputStream = new ObjectInputStream(new FileInputStream(chosenFile));
             byte[] loadedMazeByteArray = (byte[]) loadInputStream.readObject();
             Maze loadedMaze = new Maze(loadedMazeByteArray);
-            viewModel.setLoadedMaze(loadedMaze);}
+            viewModel.setLoadedMaze(loadedMaze);
+            textField_mazeRows.setText(String.valueOf(loadedMaze.getRows()));
+            textField_mazeColumns.setText(String.valueOf(loadedMaze.getColumns()));
+        }
         catch (Exception e) {
             ErrorMessage("The maze could not be loaded, please select a different file");}
         actionEvent.consume();

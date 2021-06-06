@@ -254,15 +254,4 @@ public class MyModel extends Observable implements IModel {
         SolveMazeServer.start();
     }
 
-    public void setLoadedMaze(Maze loadedMaze){
-        String action = "ModelLoadedMaze";
-        modelMaze = loadedMaze;
-        PlayerRow =modelMaze.getStartPosition().getRowIndex();
-        PlayerCol = modelMaze.getStartPosition().getColumnIndex();
-
-        deleteSolution();
-        setChanged();
-        notifyObservers(action);
-    }
-
 }
