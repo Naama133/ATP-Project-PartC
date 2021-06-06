@@ -215,7 +215,6 @@ public class MyViewController implements Initializable , Observer,IView {
             }
             double newScaleX = mazeDisplayer.getScaleX() * zoom;
             double newScaleY = mazeDisplayer.getScaleY() * zoom;
-
             zoomIn(pane , x,x);
             /*mazeDisplayer.setScaleX(newScaleX);
             mazeDisplayer.setScaleY(newScaleY);
