@@ -9,8 +9,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.beans.property.StringProperty;
+import javafx.scene.transform.Scale;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -254,6 +256,5 @@ public class MazeDisplayer extends Canvas {
     public void drawMaze(){
         draw();
     }
-
 
 }

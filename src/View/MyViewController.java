@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -209,18 +210,22 @@ public class MyViewController implements Initializable , Observer,IView {
     public void mouseScrolled(ScrollEvent scrollEvent) {
         //todo: correct the zoom (no it has constrains)
         //todo naama - update from email with rotem
+        double x =  0.1;
         if(scrollEvent.isControlDown()) {
             double zoom = 1.02;
             double deltaY = scrollEvent.getDeltaY();
             if (deltaY < 0) {
                 zoom = 0.98;
+                x = -0.1;
             }
             double newScaleX = mazeDisplayer.getScaleX() * zoom;
             double newScaleY = mazeDisplayer.getScaleY() * zoom;
 
-            mazeDisplayer.setScaleX(newScaleX);
+            zoomIn(pane , x,x);
+            /*mazeDisplayer.setScaleX(newScaleX);
             mazeDisplayer.setScaleY(newScaleY);
-            mazeDisplayer.drawMaze();
+            mazeDisplayer.drawMaze();*/
+
         }
         scrollEvent.consume();
     }
@@ -350,6 +355,14 @@ public class MyViewController implements Initializable , Observer,IView {
     public void setStageAndScene(Stage primaryStage) {
         myStage = primaryStage;
     }
+    private void zoomIn(Pane pane,double newScaleX,double newScaleY) {
+        Scale newScale = new Scale();
+        newScale.setX(pane.getScaleX() + newScaleX);
+        newScale.setY(pane.getScaleY() + newScaleY);
+        newScale.setPivotX(pane.getScaleX());
+        newScale.setPivotY(pane.getScaleY());
+        pane.getTransforms().add(newScale);
+    }
 
 
     /*----------    Alert    ----------*/
@@ -366,3 +379,5 @@ public class MyViewController implements Initializable , Observer,IView {
         alert.setContentText(message);
         alert.show(); }
 }
+
+
