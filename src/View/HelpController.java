@@ -15,7 +15,8 @@ public class HelpController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         String help =
-                "\nIn this game, to create a maze you must click on the button \"Generate Maze\" On the left side of the window.\n" +
+                "\nIn this game, to create a maze you must click on the button \"Generate Maze\" On the left side of the window,\n" +
+                "or press File -> New in the top Menu Bar.\n"+
                 "Note that you can choose the dimensions of the maze (the minimum size is 2 * 2, and the maximum is 1000 * 1000)\n\n"+
                 "Now, you have got a new maze, with the cartoon character with whom you move in the maze located at the starting point of the maze.\n " +
                 "Your goal (of course) is to reach the end point of the maze.\n\n" +

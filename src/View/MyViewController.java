@@ -98,7 +98,8 @@ public class MyViewController implements Initializable , Observer,IView {
         this.updatePlayerCol.set("" + col);
     }
 
-    public void createNewMaze(){
+    //handle maze creation
+    public void generateMaze(ActionEvent actionEvent) {
         if(mazeDisplayer.getDrawSolution())
             mazeDisplayer.ChangeDrawSolution();
         mazeDisplayer.deleteSolution();
@@ -115,12 +116,6 @@ public class MyViewController implements Initializable , Observer,IView {
         solution_btn.setDisable(false);
         restart_btn.setDisable(false);
     }
-
-    //handle maze creation
-    public void generateMaze(ActionEvent actionEvent) {
-      createNewMaze();
-    }
-
     public void setPlayerPosition(int row, int col) {
         mazeDisplayer.setPlayerPosition(row,col);
         setUpdatePlayerRow(row);
@@ -271,7 +266,7 @@ public class MyViewController implements Initializable , Observer,IView {
 
     public void helpWindow(ActionEvent actionEvent) {
 
-        helperFunctionOpenStage("Help", 750, 550, false, false);
+        helperFunctionOpenStage("Help", 750, 570, false, false);
     }
 
     public void propertiesWindow(ActionEvent actionEvent) {
@@ -296,13 +291,6 @@ public class MyViewController implements Initializable , Observer,IView {
         System.out.println("save");
     }
 
-    public void newGame(ActionEvent actionEvent) {
-        //todo
-        helperFunctionOpenStage("New", 325, 150, false, false);
-
-        System.out.println("new");
-
-    }
 
     public void setStageAndScene(Stage primaryStage) {
         myStage = primaryStage;
