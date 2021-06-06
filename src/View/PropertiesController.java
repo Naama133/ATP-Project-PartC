@@ -62,15 +62,12 @@ public class PropertiesController implements Initializable {
         }
         String genStr = catString(Configurations.getGeneratingAlgorithm().getClass().toString());
         if(!newGenerator.equals(genStr)){
-            //todo: generate new maze, and restart the game, include - delete the current solution if exist
             Configurations.setGenerator(newGenerator);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("If you want to create a new maze problem, by using the new\ngenerator algorithm you choose, press again: \"Generate Maze\"");
             alert.show();
         }
         else if(!newAlgorithm.equals(serStr) ){
-            //todo: delete current solution if exist
-            //todo: check forum - if there is already solution to maze it can't solve in a different algorithm.
             Configurations.setSearchingAlgorithm(newAlgorithm);
         }
 

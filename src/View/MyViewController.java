@@ -257,9 +257,6 @@ public class MyViewController implements Initializable , Observer,IView {
             ok_btn.setOnAction(e->{
                 if(mazeDisplayer.getDrawSolution())
                     mazeDisplayer.ChangeDrawSolution();
-
-                mazeDisplayer.deleteSolution();
-                viewModel.deleteSolution();
                 propertiesController.changeConfiguration(e);
                 stage.close();
                 mazeDisplayer.drawMaze();
@@ -286,6 +283,7 @@ public class MyViewController implements Initializable , Observer,IView {
     }
 
     public void checkExitWanted(){
+
         helperFunctionOpenStage("Exit", 325, 150, true, false);
     }
     public void loadGame(ActionEvent actionEvent) {
@@ -296,11 +294,12 @@ public class MyViewController implements Initializable , Observer,IView {
     public void saveGame(ActionEvent actionEvent) {
         //todo
         System.out.println("save");
-
     }
 
     public void newGame(ActionEvent actionEvent) {
         //todo
+        helperFunctionOpenStage("New", 325, 150, false, false);
+
         System.out.println("new");
 
     }
