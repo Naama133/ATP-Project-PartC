@@ -28,6 +28,7 @@ public class Main extends Application {
     //todo - buttons of minimaize and - right up
     //todo - less fields - not all are necessary
     //todo - jar file has a problem
+    //todo: put text & buttons of scene with a small gap from left side
 
     @Override
     public void start(Stage primaryStage) throws Exception{

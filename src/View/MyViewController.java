@@ -235,11 +235,11 @@ public class MyViewController implements Initializable , Observer,IView {
             alert.show();
         }
         Scene scene = new Scene(root, sceneSizeW, sceneSizeH);
-        scene.getStylesheets().add(getClass().getResource(title+".css").toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL); //lock the window
         if(ExitWindow){
+            scene.getStylesheets().add(getClass().getResource("Exit.css").toExternalForm());
             stage.setTitle("");
 
             ExitController exitController = fxmlLoader.getController();
@@ -257,9 +257,6 @@ public class MyViewController implements Initializable , Observer,IView {
             ok_btn.setOnAction(e->{
                 if(mazeDisplayer.getDrawSolution())
                     mazeDisplayer.ChangeDrawSolution();
-
-                mazeDisplayer.deleteSolution();
-                viewModel.deleteSolution();
                 propertiesController.changeConfiguration(e);
                 stage.close();
                 mazeDisplayer.drawMaze();
@@ -278,7 +275,7 @@ public class MyViewController implements Initializable , Observer,IView {
     }
 
     public void propertiesWindow(ActionEvent actionEvent) {
-        helperFunctionOpenStage("Properties", 450, 350, false, true);
+        helperFunctionOpenStage("Properties", 400, 280, false, true);
     }
 
     public void exitGame(ActionEvent actionEvent) {//todo: need to check about the window -the primary Stage despairs
@@ -286,6 +283,7 @@ public class MyViewController implements Initializable , Observer,IView {
     }
 
     public void checkExitWanted(){
+
         helperFunctionOpenStage("Exit", 325, 150, true, false);
     }
     public void loadGame(ActionEvent actionEvent) {
@@ -296,11 +294,12 @@ public class MyViewController implements Initializable , Observer,IView {
     public void saveGame(ActionEvent actionEvent) {
         //todo
         System.out.println("save");
-
     }
 
     public void newGame(ActionEvent actionEvent) {
         //todo
+        helperFunctionOpenStage("New", 325, 150, false, false);
+
         System.out.println("new");
 
     }
