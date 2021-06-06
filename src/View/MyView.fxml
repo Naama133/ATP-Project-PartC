@@ -63,7 +63,7 @@
     <center>
         <Pane fx:id="pane" prefHeight="241.0" prefWidth="246.0" BorderPane.alignment="CENTER">
             <children>
-                <MazeDisplayer fx:id="mazeDisplayer" height="550.0" imageFileNameGoalPosition="./resources/images/endPosition.jpg" imageFileNamePlayer="./resources/images/balu.jpg" imageFileNameSolution="./resources/images/cookie.png" imageFileNameStartPosition="./resources/images/start.jpg" imageFileNameWall="./resources/images/wall.jpg" onKeyPressed="#keyPressed" width="550.0" />
+                <MazeDisplayer fx:id="mazeDisplayer" height="${pane.height}" imageFileNameGoalPosition="./resources/images/endPosition.jpg" imageFileNamePlayer="./resources/images/balu.jpg" imageFileNameSolution="./resources/images/cookie.png" imageFileNameStartPosition="./resources/images/start.jpg" imageFileNameWall="./resources/images/wall.jpg" onKeyPressed="#keyPressed" width="${pane.width}" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

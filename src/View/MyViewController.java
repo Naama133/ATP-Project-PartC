@@ -82,8 +82,8 @@ public class MyViewController implements Initializable , Observer,IView {
                 GameMediaPlayer.seek(Duration.ZERO);
             }
         });*/ //todo: remove the //
-        mazeDisplayer.widthProperty().bind(pane.widthProperty());
-        mazeDisplayer.heightProperty().bind(pane.heightProperty());
+/*        mazeDisplayer.widthProperty().bind(pane.widthProperty());
+        mazeDisplayer.heightProperty().bind(pane.heightProperty());*/
     }
 
     public String getUpdatePlayerRow() {
