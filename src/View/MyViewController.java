@@ -103,9 +103,6 @@ public class MyViewController implements Initializable , Observer,IView {
 
     //handle maze creation
     public void generateMaze(ActionEvent actionEvent) {
-        /*if(mazeDisplayer.getDrawSolution())
-            mazeDisplayer.ChangeDrawSolution();
-        mazeDisplayer.deleteSolution();*/
         try {
             int rows = Integer.parseInt(textField_mazeRows.getText());
             int cols = Integer.parseInt(textField_mazeColumns.getText());
@@ -115,8 +112,6 @@ public class MyViewController implements Initializable , Observer,IView {
             WarningMessage("Invalid input - Type only numbers, no spaces and signs.");
 
         }
-        /*solution_btn.setDisable(false);
-        restart_btn.setDisable(false);*/
         actionEvent.consume();
 
     }
