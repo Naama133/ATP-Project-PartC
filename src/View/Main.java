@@ -18,17 +18,11 @@ import java.util.Optional;
 public class Main extends Application {
 
     //todo - check all exceptions of last projects - handle them here
-    //todo - not config - menu to choose generator, algorithm, number of threads
-    //todo - press key before we have any maze  - exception
-    //todo - move maze to the middle of the screen?
-    //todo - add button to set size of game board
+    //todo - press key before we have any maze  - correct the error
     //todo - add comments to all files
     //todo - no printStackTrace - all exceptions will be shown in alert window!
-    //todo - where to put a main file?
-    //todo - buttons of minimaize and - right up
-    //todo - less fields - not all are necessary
-    //todo - jar file has a problem
-    //todo: put text & buttons of scene with a small gap from left side
+    //todo : if stuck in wall because of mouse drag - show one error
+    //todo: music correction
 
     @Override
     public void start(Stage primaryStage) throws Exception{

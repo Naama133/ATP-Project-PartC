@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -25,7 +26,7 @@ public class MazeDisplayer extends Canvas {
     StringProperty imageFileNameStartPosition = new SimpleStringProperty();
     StringProperty imageFileNameGoalPosition = new SimpleStringProperty();
     StringProperty imageFileNameSolution = new SimpleStringProperty();
-
+    StringProperty imageFileNameBackground = new SimpleStringProperty();
     private Maze mazeDisplay;
     private int PlayerRow = 0;
     private int PlayerCol = 0;
@@ -41,11 +42,25 @@ public class MazeDisplayer extends Canvas {
         this.mazeDisplay = mazeDisplay;
     }
 
-    public void ChangeDrawSolution() {
-        if(drawSolution)
+    public void ChangeDrawSolution(Button btn) {
+        if(drawSolution){
+            btn.setText("Show Maze Solution");
             drawSolution=false;
-        else
+        }
+        else{
+            btn.setText("Hide Maze Solution");
             drawSolution=true;
+        }
+    }
+
+    public void TrueDrawSolution(Button btn) {
+         drawSolution=true;
+         btn.setText("Hide Maze Solution");
+    }
+
+    public void FalseDrawSolution(Button btn) {
+        drawSolution=false;
+        btn.setText("Show Maze Solution");
     }
 
     public void deleteSolution() {
@@ -66,6 +81,14 @@ public class MazeDisplayer extends Canvas {
 
     public void setImageFileNameGoalPosition(String imageFileNameGoalPosition) {
         this.imageFileNameGoalPosition.set(imageFileNameGoalPosition);
+    }
+
+    public String getImageFileNameBackground() {
+        return imageFileNameBackground.get();
+    }
+
+    public void setImageFileNameBackground(String imageFileNameBackground) {
+        this.imageFileNameBackground.set(imageFileNameBackground);
     }
 
     public int getPlayerRow() {
@@ -136,6 +159,16 @@ public class MazeDisplayer extends Canvas {
             //clear the canvas: (if we already draw over the canvas)
             graphicsContext.clearRect(0, 0, canvasWidth, canvasHeight); //clearRect is the attribute that draw over the canvas
 
+            Image OceanImage = null;
+            try {
+                OceanImage = new Image(new FileInputStream(getImageFileNameBackground()));
+            } catch (FileNotFoundException e) {
+                System.out.println("There is no wall image");
+            }
+            if(OceanImage != null)
+                graphicsContext.drawImage(OceanImage, 0, 0, canvasWidth, canvasHeight);
+
+
             drawMazeWalls(graphicsContext, rows, cols, cellHeight, cellWidth);
 
             if(drawSolution)
@@ -161,17 +194,21 @@ public class MazeDisplayer extends Canvas {
             System.out.println("There is no image for the solution");
         }
 
-        graphicsContext.setFill(Color.RED); //the color that we want to add in our draw
+        graphicsContext.setFill(Color.BLUE); //the color that we want to add in our draw
         ArrayList<AState> solutionPath = solution.getSolutionPath();
 
         for (int i = 0; i < solutionPath.size(); i++) {
             String position = solutionPath.get(i).toString();
+            if(position.equals(mazeDisplay.getStartPosition().toString()) || position.equals(mazeDisplay.getGoalPosition().toString())){
+                continue;
+            }
             int index = position.indexOf(",");
             String posX = position.substring(1,index);
             String posY = position.substring(index+1, position.length()-1);
 
             double x = Integer.parseInt(posX) * cellHeight;
             double y = Integer.parseInt(posY) * cellWidth;
+
             if(solutionImage== null)
                 graphicsContext.fillRect(y, x, cellWidth, cellHeight);
             else
@@ -228,6 +265,7 @@ public class MazeDisplayer extends Canvas {
     }
 
     private void drawMazeWalls(GraphicsContext graphicsContext, int rows, int cols, double cellHeight, double cellWidth) {
+
         Image wallImage = null;
         try {
             wallImage = new Image(new FileInputStream(getImageFileNameWall()));
@@ -235,9 +273,9 @@ public class MazeDisplayer extends Canvas {
             System.out.println("There is no wall image");
         }
 
-        graphicsContext.setFill(Color.RED); //the color that we want to add in our draw
+        graphicsContext.setFill(Color.BLUE); //the color that we want to add in our draw
 
-        //iterate over all cells, if the cell value = 1, fill the cell with red color
+        //iterate over all cells, if the cell value = 1, fill the cell with BLUE color
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 if(mazeDisplay.getMazeContent()[i][j] == 1){

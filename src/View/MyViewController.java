@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -30,6 +31,7 @@ import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import javax.swing.filechooser.FileSystemView;
 
@@ -41,6 +43,8 @@ import javax.swing.filechooser.FileSystemView;
 
 public class MyViewController implements Initializable , Observer,IView {
 
+    private int mouseRow ;
+    private int mouseCol;
     public Button generate_btn;
     public Button solution_btn;
     public Button restart_btn;
@@ -59,12 +63,10 @@ public class MyViewController implements Initializable , Observer,IView {
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
 
-    //todo dar - drag - 20:00 in rotem recording + talked about log4j on start
-    //todo dar - talked about window size changing (need to to add to the button + to the drag option) 26:30 ${pane.height}
-
+    //todo  - drag - 20:00 in rotem recording + talked about log4j on start
     //todo: add music button (play & stop) & add volume scale
 
-    Media gameSoundTrack = new Media(new File("./resources/music/JalebiBaby.mp3").toURI().toString());
+    Media gameSoundTrack = new Media(new File("./resources/music/UnderTheSea.mp3").toURI().toString());
     MediaPlayer GameMediaPlayer = new MediaPlayer(gameSoundTrack);
     Media winningSoundTrack = new Media(new File("./resources/music/WeAreTheChampions.mp3").toURI().toString());
     MediaPlayer WinMediaPlayer = new MediaPlayer(winningSoundTrack);
@@ -75,15 +77,15 @@ public class MyViewController implements Initializable , Observer,IView {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playerRow.textProperty().bind(updatePlayerRow);
         playerCol.textProperty().bind(updatePlayerCol);
-/*        GameMediaPlayer.play(); //todo: remove the //
+        GameMediaPlayer.play();
         GameMediaPlayer.setOnEndOfMedia(new Runnable() {
             @Override
             public void run() {
                 GameMediaPlayer.seek(Duration.ZERO);
             }
-        });*/ //todo: remove the //
-/*        mazeDisplayer.widthProperty().bind(pane.widthProperty());
-        mazeDisplayer.heightProperty().bind(pane.heightProperty());*/
+        });
+        mazeDisplayer.widthProperty().bind(pane.widthProperty());
+        mazeDisplayer.heightProperty().bind(pane.heightProperty());
     }
 
     public String getUpdatePlayerRow() {
@@ -107,14 +109,15 @@ public class MyViewController implements Initializable , Observer,IView {
         try {
             int rows = Integer.parseInt(textField_mazeRows.getText());
             int cols = Integer.parseInt(textField_mazeColumns.getText());
-            viewModel.generateMaze(rows, cols);
+            if (rows < 2 || cols < 2 || rows >1000 || cols > 1000)
+                ErrorMessage("Invalid parameter row/column -\nmust be bigger then 1 and max size 1000.");
+            else
+                viewModel.generateMaze(rows, cols);
         }
         catch (Exception e){
-            WarningMessage("Invalid input - Type only numbers, no spaces and signs.");
-
+            ErrorMessage("Invalid input - Type only numbers, no spaces and signs.");
         }
         actionEvent.consume();
-
     }
     public void setPlayerPosition(int row, int col) {
         mazeDisplayer.setPlayerPosition(row,col);
@@ -123,7 +126,7 @@ public class MyViewController implements Initializable , Observer,IView {
     }
 
     public void solveMaze(ActionEvent actionEvent) {
-        mazeDisplayer.ChangeDrawSolution();
+        mazeDisplayer.ChangeDrawSolution(solution_btn);
         if(mazeDisplayer.getSolution()==null)
             viewModel.solveMaze();
         else
@@ -149,9 +152,8 @@ public class MyViewController implements Initializable , Observer,IView {
         String action = arg.toString();
         if(o instanceof MyViewModel) {
             switch (action) {//maze creation
-                case "ModelGenerateMaze","ModelLoadedMaze" -> { //todo naama
-                    if(mazeDisplayer.getDrawSolution())
-                        mazeDisplayer.ChangeDrawSolution();
+                case "ModelGenerateMaze","ModelLoadedMaze" -> {
+                    mazeDisplayer.FalseDrawSolution(solution_btn);
                     mazeDisplayer.deleteSolution();
                     mazeDisplayer.setMazeDisplay(viewModel.getMaze());
                     setPlayerPosition(viewModel.getPlayerRow(), viewModel.getPlayerCol());
@@ -166,45 +168,33 @@ public class MyViewController implements Initializable , Observer,IView {
                     mazeDisplayer.DrawWhenSolve(viewModel.getSolution());
                 }
                 case "BoundariesProblem" -> {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("Invalid move - You went outside the boundaries of the game board");
-                    alert.show();}
+                    ErrorMessage("Invalid move - You went outside the boundaries of the game board");
+                }
                 case "Wall" -> {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("Invalid move - You Stuck in the wall");
-                    alert.show();}
+                    ErrorMessage("Invalid move - You Stuck in the wall"); }
                 case "UserSolvedTheMaze" -> {
                     int rowViewModel = viewModel.getPlayerRow();
                     int colViewModel = viewModel.getPlayerCol();
                     setPlayerPosition(rowViewModel, colViewModel);
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("You won!! wo wo!");
-                    alert.show();
-                    //GameMediaPlayer.stop(); //todo: remove the //
-                    //WinMediaPlayer.play();
-/*                    WinMediaPlayer.setOnEndOfMedia(new Runnable() {
+                    InformationMessage("You won!! wo wo!");
+                    GameMediaPlayer.stop();
+                    WinMediaPlayer.play();
+                    WinMediaPlayer.setOnEndOfMedia(new Runnable() {
                         @Override
                         public void run() {
                             GameMediaPlayer.play();
                         }
-                    });*/ //todo: remove the //
-                }
-                case "InvalidMazeSize" -> {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("Invalid parameter row/column - must be bigger then 1 and max size 1000.");
-                    alert.show();
+                    });
                 }
                 case "restartPlayerPosition" -> {
-                    if(mazeDisplayer.getDrawSolution())
-                        mazeDisplayer.ChangeDrawSolution();
+                    mazeDisplayer.FalseDrawSolution(solution_btn);
                     setPlayerPosition(viewModel.getPlayerRow(), viewModel.getPlayerCol());
                 }
             }
         }}
 
     public void mouseScrolled(ScrollEvent scrollEvent) {
-        //todo: correct the zoom (no it has constrains)
-        //todo naama - update from email with rotem
+        //todo: correct the zoom
         double zoom =  0.1;
         if(scrollEvent.isControlDown()) {
             double deltaY = scrollEvent.getDeltaY();
@@ -235,9 +225,7 @@ public class MyViewController implements Initializable , Observer,IView {
         try {
             root = fxmlLoader.load();
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("FXML loading problem");
-            alert.show();
+            WarningMessage("FXML loading problem");
         }
         Scene scene = new Scene(root, sceneSizeW, sceneSizeH);
         stage.setScene(scene);
@@ -260,8 +248,7 @@ public class MyViewController implements Initializable , Observer,IView {
             Button ok_btn = propertiesController.OK_btn;
 
             ok_btn.setOnAction(e->{
-                if(mazeDisplayer.getDrawSolution())
-                    mazeDisplayer.ChangeDrawSolution();
+                mazeDisplayer.FalseDrawSolution(solution_btn);
                 propertiesController.changeConfiguration(e);
                 stage.close();
                 mazeDisplayer.drawMaze();
@@ -289,7 +276,7 @@ public class MyViewController implements Initializable , Observer,IView {
 
     }
 
-    public void exitGame(ActionEvent actionEvent) {//todo: need to check about the window -the primary Stage despairs
+    public void exitGame(ActionEvent actionEvent) {//todo: need to check about the window -the primary Stage disappears
         checkExitWanted();
         actionEvent.consume();
     }
@@ -346,6 +333,46 @@ public class MyViewController implements Initializable , Observer,IView {
         return fileChooser;
     }
 
+    public void mouseDragged(MouseEvent mouseEvent) {
+
+        if (viewModel.getMaze() == null)
+            return;
+
+        //Cell Size
+        double cellHeight = mazeDisplayer.getHeight() / viewModel.getMaze().getRows();
+        double cellWidth= mazeDisplayer.getWidth() / viewModel.getMaze().getColumns();
+
+        int AddR = (int) (mouseEvent.getX() - mouseRow);
+        int AddC = (int) (mouseEvent.getY() - mouseCol);
+
+/*      double PlayerRow = playerDisplay.getHeight()+ mouseR;//סנטימטרים
+        double PlayerCol = playerDisplay.getWidth() + mouseC;*/
+//Math.abs(viewModel.getPlayerRow() - mouseX
+        if (Math.abs(AddR) < cellHeight && Math.abs(AddC) < cellWidth) return;
+
+        int countRows = (int) (AddR/cellHeight);
+        System.out.println(countRows + "   this is the number for row to add------------");
+        int countCols = (int) (AddC/cellWidth);
+        System.out.println(countCols + "   this is the number for col to add------------");
+
+        if (countCols + viewModel.getPlayerCol() < viewModel.getPlayerCol())
+            viewModel.movePlayerByMouseDragged(Math.abs(countCols), KeyCode.UP);
+
+        if (countCols + viewModel.getPlayerCol() > viewModel.getPlayerCol())
+            viewModel.movePlayerByMouseDragged(Math.abs(countCols), KeyCode.DOWN);
+
+        if (countRows + viewModel.getPlayerRow() < viewModel.getPlayerRow())
+            viewModel.movePlayerByMouseDragged(Math.abs(countRows), KeyCode.LEFT);
+
+        if (countRows + viewModel.getPlayerRow() > viewModel.getPlayerRow())
+            viewModel.movePlayerByMouseDragged(Math.abs(countRows), KeyCode.RIGHT);
+
+    }
+
+    public void mouseMoved(MouseEvent mouseEvent) {
+        mouseRow = (int) mouseEvent.getX();
+        mouseCol = (int) mouseEvent.getY();
+    }
 
     public void setStageAndScene(Stage primaryStage) {
         myStage = primaryStage;

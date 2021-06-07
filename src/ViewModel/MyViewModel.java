@@ -5,6 +5,7 @@ import Model.MyModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
 import javafx.scene.control.Alert;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.util.Observable;
@@ -56,7 +57,6 @@ public class MyViewModel extends Observable implements Observer {
         int direction = -1;
         switch (keyEvent.getCode()){
             //up, down, left, right
-            //todo:  check answer on forum - add to help section the valid keys (add keys button?)
             case CONTROL -> direction = -2;// ignore
             case NUMPAD8, UP -> direction = 8;
             case NUMPAD2, DOWN -> direction = 2;
@@ -76,6 +76,27 @@ public class MyViewModel extends Observable implements Observer {
         }
         if (direction > 0)
             model.UpdatePlayerPosition(direction);
+    }
+
+    public void movePlayerByMouseDragged(int counter, KeyCode keyCode){
+        //when the mouse dragged on the mazeDisplay we would like to see the player follow him in the same direction.
+        int direction = -1;
+        for (int i = 0; i < counter; i++) {
+            switch (keyCode) {
+                //up, down, left, right
+                case NUMPAD8, UP -> direction = 8;
+                case NUMPAD2, DOWN -> direction = 2;
+                case NUMPAD4, LEFT -> direction = 4;
+                case NUMPAD6, RIGHT -> direction = 6;
+                //diagonals
+                case NUMPAD7 -> direction = 7;
+                case NUMPAD9 -> direction = 9;
+                case NUMPAD1 -> direction = 1;
+                case NUMPAD3 -> direction = 3;
+            }
+            if (direction > 0)
+                model.UpdatePlayerPosition(direction);
+        }
     }
 
     public void restartPlayer(){
