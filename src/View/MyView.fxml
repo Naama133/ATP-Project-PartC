@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import View.*?>
+<?import View.MazeDisplayer?>
 <BorderPane onMouseClicked="#mouseClicked" onScroll="#mouseScrolled" prefHeight="265.0" prefWidth="440.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
     <bottom>
         <HBox prefHeight="3.0" prefWidth="434.0" BorderPane.alignment="CENTER" />
@@ -63,7 +63,7 @@
     <center>
         <Pane fx:id="pane" prefHeight="241.0" prefWidth="246.0" BorderPane.alignment="CENTER">
             <children>
-                <MazeDisplayer fx:id="mazeDisplayer" height="${pane.height}"  imageFileNameGoalPosition="./resources/images/endPosition.jpg" imageFileNamePlayer="./resources/images/balu.jpg" imageFileNameSolution="./resources/images/cookie.png" imageFileNameStartPosition="./resources/images/start.jpg" imageFileNameWall="./resources/images/wall.jpg" onKeyPressed="#keyPressed" width="${pane.width}" />
+                <MazeDisplayer fx:id="mazeDisplayer" height="${pane.height}" imageFileNameGoalPosition="./resources/images/endPosition.jpg" imageFileNamePlayer="./resources/images/balu.jpg" imageFileNameSolution="./resources/images/cookie.png" imageFileNameStartPosition="./resources/images/start.jpg" imageFileNameWall="./resources/images/wall.jpg" onKeyPressed="#keyPressed" width="${pane.width}" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -110,8 +110,8 @@
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Label>
-                  <Label fx:id="playerRow" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Label fx:id="playerCol" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label fx:id="playerRow" prefHeight="17.0" prefWidth="74.0" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label fx:id="playerCol" prefHeight="17.0" prefWidth="74.0" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                </children>
             </GridPane>
          </children>
