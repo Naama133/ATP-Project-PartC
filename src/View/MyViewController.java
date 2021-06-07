@@ -325,6 +325,7 @@ public class MyViewController implements Initializable , Observer,IView {
             FileChooser fileChooser = createFileChooser("Save Maze As");
             fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter( "Maze Files","*.maze"));
             File file = fileChooser.showSaveDialog(myStage);
+            if (file == null) return;
             ObjectOutputStream saveNewGame = null;
             try {
                 saveNewGame = new ObjectOutputStream(new FileOutputStream(file));

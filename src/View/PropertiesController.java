@@ -61,8 +61,7 @@ public class PropertiesController implements Initializable {
         if(!newGenerator.equals(genStr)){
             Configurations.setGenerator(newGenerator);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("If you want to create a new maze problem, by using the new\ngenerator algorithm you choose, press again: \"Generate Maze\"");
-            alert.show();
+            alert.setContentText("If you want to create a new maze problem, by using the new\ngenerator algorithm you choose, press again: \"Generate Maze\" \nor File -> New.");            alert.show();
         }
         else if(!newAlgorithm.equals(serStr) ){
             Configurations.setSearchingAlgorithm(newAlgorithm);
