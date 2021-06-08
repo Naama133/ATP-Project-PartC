@@ -31,6 +31,9 @@ public class MazeDisplayer extends Canvas {
     private int PlayerCol = 0;
     private Boolean drawSolution = false;
     private Solution solution = null;
+    private double cellHeight;
+    private double cellWidth ;
+
 
     public MazeDisplayer() {
         widthProperty().addListener(e -> draw());
@@ -59,6 +62,7 @@ public class MazeDisplayer extends Canvas {
     public Boolean getDrawSolution() {
         return drawSolution;
     }
+
 
     public void setImageFileNameStartPosition(String imageFileNameStartPosition) {
         this.imageFileNameStartPosition.set(imageFileNameStartPosition);
@@ -126,6 +130,7 @@ public class MazeDisplayer extends Canvas {
             double canvasHeight = getHeight();
             double canvasWidth = getWidth();
             int rows = mazeDisplay.getRows();
+
             int cols = mazeDisplay.getColumns();
 
             double cellHeight = canvasHeight / rows;

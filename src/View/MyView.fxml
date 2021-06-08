@@ -61,7 +61,7 @@
         </VBox>
     </top>
     <center>
-        <Pane fx:id="pane" prefHeight="241.0" prefWidth="246.0" BorderPane.alignment="CENTER">
+        <Pane fx:id="pane" prefHeight="241.0" prefWidth="246.0" BorderPane.alignment="CENTER" onMouseMoved="#mouseMoved" onMouseDragged="#mouseDragged">
             <children>
                 <MazeDisplayer fx:id="mazeDisplayer" height="${pane.height}" imageFileNameGoalPosition="./resources/images/endPosition.jpg" imageFileNamePlayer="./resources/images/balu.jpg" imageFileNameSolution="./resources/images/cookie.png" imageFileNameStartPosition="./resources/images/start.jpg" imageFileNameWall="./resources/images/wall.jpg" onKeyPressed="#keyPressed" width="${pane.width}" />
             </children>

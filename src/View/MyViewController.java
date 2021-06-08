@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -30,6 +31,7 @@ import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import javax.swing.filechooser.FileSystemView;
 
@@ -53,6 +55,8 @@ public class MyViewController implements Initializable , Observer,IView {
     public TextField textField_mazeRows;
     public TextField textField_mazeColumns;
     public MazeDisplayer mazeDisplayer;
+    private int mouseRow ;
+    private int mouseCol;
 
     //StringProperty can listen to other StringProperty and change when the other change
     //we will bind them to the StringProperty of the labels when the scene initialize (by implement Initializable)
@@ -75,15 +79,14 @@ public class MyViewController implements Initializable , Observer,IView {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playerRow.textProperty().bind(updatePlayerRow);
         playerCol.textProperty().bind(updatePlayerCol);
-/*        GameMediaPlayer.play(); //todo: remove the //
+        GameMediaPlayer.play(); //todo: remove the //
         GameMediaPlayer.setOnEndOfMedia(new Runnable() {
             @Override
             public void run() {
                 GameMediaPlayer.seek(Duration.ZERO);
             }
-        });*/ //todo: remove the //
-/*        mazeDisplayer.widthProperty().bind(pane.widthProperty());
-        mazeDisplayer.heightProperty().bind(pane.heightProperty());*/
+        }); //todo: remove the //
+
     }
 
     public String getUpdatePlayerRow() {
@@ -205,11 +208,11 @@ public class MyViewController implements Initializable , Observer,IView {
     public void mouseScrolled(ScrollEvent scrollEvent) {
         //todo: correct the zoom (no it has constrains)
         //todo naama - update from email with rotem
-        double zoom =  0.1;
+        double zoom =  0.2;
         if(scrollEvent.isControlDown()) {
             double deltaY = scrollEvent.getDeltaY();
             if (deltaY < 0) {
-                zoom = -0.1;
+                zoom = -0.2;
             }
             Scale newScale = new Scale();
             newScale.setX(pane.getScaleX() + zoom);
@@ -217,6 +220,7 @@ public class MyViewController implements Initializable , Observer,IView {
             newScale.setPivotX(pane.getScaleX());
             newScale.setPivotY(pane.getScaleY());
             pane.getTransforms().add(newScale);
+
             scrollEvent.consume();
         }
     }
@@ -364,6 +368,48 @@ public class MyViewController implements Initializable , Observer,IView {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setContentText(message);
         alert.show(); }
+
+
+    public void mouseDragged(MouseEvent mouseEvent) {
+
+        if (viewModel.getMaze() == null)
+            return;
+
+        //Cell Size
+        double cellHeight = mazeDisplayer.getHeight() / viewModel.getMaze().getRows();
+        double cellWidth= mazeDisplayer.getWidth() / viewModel.getMaze().getColumns();
+
+        int AddR = (int) (mouseEvent.getX() - mouseRow);
+        int AddC = (int) (mouseEvent.getY() - mouseCol);
+
+/*      double PlayerRow = playerDisplay.getHeight()+ mouseR;//סנטימטרים
+        double PlayerCol = playerDisplay.getWidth() + mouseC;*/
+//Math.abs(viewModel.getPlayerRow() - mouseX
+        if (Math.abs(AddR) < cellHeight && Math.abs(AddC) < cellWidth) return;
+
+        int countRows = (int) (AddR/cellHeight);
+        System.out.println(countRows + "   this is the number for row to add------------");
+        int countCols = (int) (AddC/cellWidth);
+        System.out.println(countCols + "   this is the number for col to add------------");
+
+        if (countCols + viewModel.getPlayerCol() < viewModel.getPlayerCol())
+            viewModel.movePlayerByMouseDragged(Math.abs(countCols), KeyCode.UP);
+
+        if (countCols + viewModel.getPlayerCol() > viewModel.getPlayerCol())
+            viewModel.movePlayerByMouseDragged(Math.abs(countCols), KeyCode.DOWN);
+
+        if (countRows + viewModel.getPlayerRow() < viewModel.getPlayerRow())
+            viewModel.movePlayerByMouseDragged(Math.abs(countRows), KeyCode.LEFT);
+
+        if (countRows + viewModel.getPlayerRow() > viewModel.getPlayerRow())
+            viewModel.movePlayerByMouseDragged(Math.abs(countRows), KeyCode.RIGHT);
+
+    }
+
+    public void mouseMoved(MouseEvent mouseEvent) {
+        mouseRow = (int) mouseEvent.getX();
+        mouseCol = (int) mouseEvent.getY();
+    }
 }
 
 
