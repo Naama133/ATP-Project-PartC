@@ -127,7 +127,7 @@
             <ChoiceBox fx:id="choosePlayer" layoutX="55.0" layoutY="291.0" onAction="#changePlayer" prefHeight="25.0" prefWidth="89.0" />
             <Text layoutX="50.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Player :" textAlignment="CENTER" wrappingWidth="100.53674697875977">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold Italic" size="12.0" />
                </font>
             </Text>
             <ImageView fx:id="play" fitHeight="29.0" fitWidth="30.0" layoutX="85.0" layoutY="538.0" onMousePressed="#playMusic" pickOnBounds="true" preserveRatio="true">
