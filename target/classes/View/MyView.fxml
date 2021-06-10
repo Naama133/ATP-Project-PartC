@@ -63,9 +63,9 @@
         </VBox>
     </top>
     <center>
-        <Pane fx:id="pane" onMouseDragged="#mouseDragged" onMouseMoved="#mouseMoved" prefHeight="241.0" prefWidth="246.0" BorderPane.alignment="CENTER">
+        <Pane fx:id="pane" onDragDetected="#check2" onMouseDragged="#mouseDragged" onMouseMoved="#mouseMoved" prefHeight="241.0" prefWidth="246.0" BorderPane.alignment="CENTER">
             <children>
-            <MazeDisplayer fx:id="mazeDisplayer" height="${pane.height}" imageFileNameAriel="./resources/images/Ariel.png" imageFileNameFlounder="./resources/images/flounder.png" imageFileNameGoalPosition="./resources/images/prince.png" imageFileNameSebastian="./resources/images/sebastian.png" imageFileNameSolution="./resources/images/pearl.png" imageFileNameStartPosition="./resources/images/KingTriton.png" imageFileNameUrsula="./resources/images/Ursula.png" imageFileNameWall="./resources/images/coral1.png" imageFileNameWall2="./resources/images/coral3.png" imageFileNameWall3="./resources/images/coral4.png" imageFileNameWall4="./resources/images/coral5.png" imageFileNameWall5="./resources/images/coral2.png" onKeyPressed="#keyPressed" width="${pane.width}" />
+            <MazeDisplayer fx:id="mazeDisplayer" height="${pane.height}" imageFileNameAriel="./resources/images/Ariel.png" imageFileNameFlounder="./resources/images/flounder.png" imageFileNameGoalPosition="./resources/images/prince.png" imageFileNameSebastian="./resources/images/sebastian.png" imageFileNameSolution="./resources/images/Pearl.png" imageFileNameStartPosition="./resources/images/KingTriton.png" imageFileNameUrsula="./resources/images/Ursula.png" imageFileNameWall="./resources/images/coral1.png" imageFileNameWall2="./resources/images/coral3.png" imageFileNameWall3="./resources/images/coral4.png" imageFileNameWall4="./resources/images/coral5.png" imageFileNameWall5="./resources/images/coral2.png" onKeyPressed="#keyPressed" width="${pane.width}" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
