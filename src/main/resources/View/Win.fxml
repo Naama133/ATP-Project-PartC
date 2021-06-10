@@ -7,17 +7,17 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="205.0" prefWidth="368.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.WinController">
    <children>
-      <Text fill="#06557a" layoutX="53.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="congratulations!!" textAlignment="CENTER" wrappingWidth="261.664794921875">
+      <Text layoutX="53.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="congratulations!!" textAlignment="CENTER" wrappingWidth="261.664794921875">
          <font>
             <Font name="System Bold" size="27.0" />
          </font>
       </Text>
-      <Text fill="#06557a" layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You solved the maze and won the game!!" textAlignment="CENTER" wrappingWidth="346.46484375">
+      <Text layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You solved the maze and won the game!!" textAlignment="CENTER" wrappingWidth="346.46484375">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Text>
-      <Text fill="#06557a" layoutX="10.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What would you like to do now?" textAlignment="CENTER" wrappingWidth="346.46484375">
+      <Text layoutX="10.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What would you like to do now?" textAlignment="CENTER" wrappingWidth="346.46484375">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>

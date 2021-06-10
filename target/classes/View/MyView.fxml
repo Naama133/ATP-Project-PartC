@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import View.MazeDisplayer?>
-<BorderPane onMouseClicked="#mouseClicked" onScroll="#mouseScrolled" prefHeight="356.0" prefWidth="553.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+<BorderPane onMouseClicked="#mouseClicked" onScroll="#mouseScrolled" prefHeight="486.0" prefWidth="577.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
     <bottom>
         <HBox prefHeight="0.0" prefWidth="440.0" BorderPane.alignment="CENTER" />
     </bottom>
@@ -65,7 +65,7 @@
     <center>
         <Pane fx:id="pane" onMouseDragged="#mouseDragged" onMouseMoved="#mouseMoved" prefHeight="241.0" prefWidth="246.0" BorderPane.alignment="CENTER">
             <children>
-            <MazeDisplayer fx:id="mazeDisplayer" height="${pane.height}" imageFileNameGoalPosition="./resources/images/prince.png" imageFileNameAriel="./resources/images/Ariel.png" imageFileNameFlounder="./resources/images/flounder.png" imageFileNameSebastian="./resources/images/sebastian.png" imageFileNameUrsula="./resources/images/Ursula.png" imageFileNameSolution="./resources/images/pearl.png" imageFileNameStartPosition="./resources/images/KingTriton.png" imageFileNameWall="./resources/images/coral.png" imageFileNameWall2="./resources/images/coral2.png" imageFileNameWall3="./resources/images/coral3.png" imageFileNameWall4="./resources/images/coral4.png" imageFileNameWall5="./resources/images/coral5.png" onKeyPressed="#keyPressed" width="${pane.width}" />
+            <MazeDisplayer fx:id="mazeDisplayer" height="${pane.height}" imageFileNameAriel="./resources/images/Ariel.png" imageFileNameFlounder="./resources/images/flounder.png" imageFileNameGoalPosition="./resources/images/prince.png" imageFileNameSebastian="./resources/images/sebastian.png" imageFileNameSolution="./resources/images/pearl.png" imageFileNameStartPosition="./resources/images/KingTriton.png" imageFileNameUrsula="./resources/images/Ursula.png" imageFileNameWall="./resources/images/coral1.png" imageFileNameWall2="./resources/images/coral3.png" imageFileNameWall3="./resources/images/coral4.png" imageFileNameWall4="./resources/images/coral5.png" imageFileNameWall5="./resources/images/coral2.png" onKeyPressed="#keyPressed" width="${pane.width}" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -112,12 +112,18 @@
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font></Label>
-                        <Label fx:id="playerRow" alignment="CENTER" prefHeight="17.0" prefWidth="74.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <Label fx:id="playerCol" alignment="CENTER" prefHeight="17.0" prefWidth="74.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label fx:id="playerRow" alignment="CENTER" prefHeight="17.0" prefWidth="74.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                        <Label fx:id="playerCol" alignment="CENTER" prefHeight="17.0" prefWidth="74.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
                     </children>
                 </GridPane>
-            <ChoiceBox fx:id="choosePlayer" layoutX="55.0" layoutY="291.0" prefHeight="25.0" prefWidth="89.0" onAction="#changePlayer" />
-            <Text layoutX="50.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a Player :" textAlignment="CENTER" wrappingWidth="100.53674697875977">
+            <ChoiceBox fx:id="choosePlayer" layoutX="55.0" layoutY="291.0" onAction="#changePlayer" prefHeight="25.0" prefWidth="89.0" />
+            <Text layoutX="50.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Player :" textAlignment="CENTER" wrappingWidth="100.53674697875977">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
