@@ -8,7 +8,6 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -65,9 +64,9 @@
         </VBox>
     </top>
     <center>
-        <Pane fx:id="pane" onMouseDragged="#mouseDragged" onMouseMoved="#mouseMoved" prefHeight="241.0" prefWidth="246.0" BorderPane.alignment="CENTER">
+        <Pane fx:id="pane" onMouseDragged="#mouseDragged" onMouseMoved="#mouseMoved" prefHeight="573.0" prefWidth="481.0" BorderPane.alignment="CENTER">
             <children>
-            <MazeDisplayer fx:id="mazeDisplayer" height="${pane.height}" imageFileNameAriel="./resources/images/Ariel.png" imageFileNameFlounder="./resources/images/flounder.png" imageFileNameGoalPosition="./resources/images/prince.png" imageFileNameSebastian="./resources/images/sebastian.png" imageFileNameSolution="./resources/images/Pearl.png" imageFileNameStartPosition="./resources/images/KingTriton.png" imageFileNameUrsula="./resources/images/Ursula.png" imageFileNameWall="./resources/images/coral1.png" imageFileNameWall2="./resources/images/coral3.png" imageFileNameWall3="./resources/images/coral4.png" imageFileNameWall4="./resources/images/coral5.png" imageFileNameWall5="./resources/images/coral2.png" onKeyPressed="#keyPressed" width="${pane.width}" />
+            <MazeDisplayer fx:id="mazeDisplayer" height="${pane.height}" onKeyPressed="#keyPressed" width="${pane.width}" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -130,40 +129,19 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Text>
-                <ImageView fx:id="rightArrow_btn" fitHeight="26.0" fitWidth="42.0" layoutX="111.0" layoutY="384.0" onMousePressed="#showRightWindow" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@/images/rightArrow.png" />
-                    </image>
+                <ImageView fx:id="rightArrow_btn" fitHeight="26.0" fitWidth="42.0" layoutX="111.0" layoutY="373.0" onMousePressed="#showRightWindow" pickOnBounds="true" preserveRatio="true">
                 </ImageView>
-                <ImageView fx:id="leftArrow_btn" fitHeight="29.0" fitWidth="33.0" layoutX="47.0" layoutY="385.0" onMousePressed="#showLeftWindow" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@/images/leftArrow.png" />
-                    </image>
+                <ImageView fx:id="leftArrow_btn" fitHeight="29.0" fitWidth="33.0" layoutX="47.0" layoutY="374.0" onMousePressed="#showLeftWindow" pickOnBounds="true" preserveRatio="true">
                 </ImageView>
-                <ImageView fx:id="upArrow_btn" fitHeight="37.0" fitWidth="24.0" layoutX="84.0" layoutY="362.0" onMousePressed="#showUpWindow" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@/images/upArrow.png" />
-                    </image>
+                <ImageView fx:id="upArrow_btn" fitHeight="37.0" fitWidth="24.0" layoutX="84.0" layoutY="351.0" onMousePressed="#showUpWindow" pickOnBounds="true" preserveRatio="true">
                 </ImageView>
-                <ImageView fx:id="downArrow_btn" fitHeight="33.0" fitWidth="24.0" layoutX="84.0" layoutY="403.0" onMousePressed="#showDownWindow" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@/images/downArrow.png" />
-                    </image>
+                <ImageView fx:id="downArrow_btn" fitHeight="33.0" fitWidth="24.0" layoutX="84.0" layoutY="392.0" onMousePressed="#showDownWindow" pickOnBounds="true" preserveRatio="true">
                 </ImageView>
             <ImageView fx:id="play" fitHeight="29.0" fitWidth="30.0" layoutX="85.0" layoutY="538.0" onMousePressed="#playMusic" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/images/play.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="next" fitHeight="31.0" fitWidth="34.0" layoutX="115.0" layoutY="537.0" onMousePressed="#nextSong" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/images/next.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="pause" fitHeight="28.0" fitWidth="31.0" layoutX="55.0" layoutY="538.0" onMousePressed="#pauseMusic" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/images/pause.png" />
-               </image>
             </ImageView>
             <Text fx:id="currentSong" layoutX="1.0" layoutY="526.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Under The Sea" textAlignment="CENTER" wrappingWidth="198.13675689697266">
                <font>
@@ -175,10 +153,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Text>
-            <ImageView fitHeight="20.0" fitWidth="21.0" layoutX="60.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/images/Pearl.png" />
-               </image>
+            <ImageView fx:id="pearl" fitHeight="20.0" fitWidth="21.0" layoutX="60.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
             <Text layoutX="85.0" layoutY="477.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" textAlignment="CENTER" wrappingWidth="27.457427978515625">
                <font>

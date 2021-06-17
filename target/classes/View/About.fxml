@@ -17,25 +17,13 @@
                     </font></Label>
             </center>
         </BorderPane>
-      <ImageView fitHeight="150.0" fitWidth="284.0" layoutX="95.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@/images/Ariel2.png" />
-         </image>
+      <ImageView fx:id="ariel2" fitHeight="150.0" fitWidth="284.0" layoutX="95.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
-      <ImageView fitHeight="112.0" fitWidth="105.0" layoutX="222.0" layoutY="381.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@/images/Flaunder2.png" />
-         </image>
+      <ImageView fx:id="flounder" fitHeight="112.0" fitWidth="105.0" layoutX="222.0" layoutY="381.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
-      <ImageView fitHeight="170.0" fitWidth="98.0" layoutX="14.0" layoutY="381.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@/images/eric2.png" />
-         </image>
+      <ImageView fx:id="eric" fitHeight="170.0" fitWidth="98.0" layoutX="14.0" layoutY="381.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="332.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@/images/king2.png" />
-         </image>
+      <ImageView fx:id="king" fitHeight="150.0" fitWidth="200.0" layoutX="332.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
     </children>
 </AnchorPane>

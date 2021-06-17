@@ -34,15 +34,9 @@
                     </font></Label>
             </center>
         </BorderPane>
-      <ImageView fitHeight="128.0" fitWidth="184.0" layoutX="147.0" layoutY="512.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@/images/Ariel3.png" />
-         </image>
+      <ImageView fx:id="ariel3" fitHeight="128.0" fitWidth="184.0" layoutX="147.0" layoutY="512.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
-      <ImageView fitHeight="128.0" fitWidth="184.0" layoutX="428.0" layoutY="512.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@/images/Ariel4.png" />
-         </image>
+      <ImageView fx:id="ariel4" fitHeight="128.0" fitWidth="184.0" layoutX="428.0" layoutY="512.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
     </children>
 </AnchorPane>
